@@ -70,7 +70,9 @@ def classify(trace: dict, expected_output: list[str] | None = None) -> Verdict:
     counts = Counter((s["tool"], s["input"]) for _, s in calls)
     (tool, inp), n = counts.most_common(1)[0]
     if n > MAX_RETRIES:
-        idx = [i for i, s in calls if (s["tool"], s["input"]) == (tool, inp)][-1]
+        repeated = [(i, s) for i, s in calls if (s["tool"], s["input"]) == (tool, inp)]
+        failing = [i for i, s in repeated if s.get("exit_code") not in (0, None)]
+        idx = failing[-1] if failing else repeated[-1][0]
         return Verdict(UNEXPECTED, "retry_threshold",
                        f"`{tool}` was called {n} times with the same input (threshold {MAX_RETRIES}).", idx)
 
