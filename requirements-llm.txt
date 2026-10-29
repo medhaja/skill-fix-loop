@@ -1,0 +1,3 @@
+# Optional: only needed for the LLM judge and drafter (set LLM_MODEL in .env).
+-r requirements.txt
+litellm==1.105.7
