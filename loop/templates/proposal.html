@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% from "_macros.html" import badge, decision_chip %}
+{% block title %}{{ d.title }} · Skill Fix Loop{% endblock %}
+{% block content %}
+<p class="crumbs"><a href="/">Skills</a> / <a href="/skills/{{ d.skill }}">{{ d.skill }}</a> / proposed edit</p>
+<section class="intro">
+  <div class="title-row">
+    <h1>{{ d.title }}</h1>
+    {{ decision_chip(decision.decision if decision else None) }}
+  </div>
+  <p class="muted">For cause <b>{{ cause.label }}</b> · {{ cause.count }} runs · drafted by
+    {% if d.source == 'mock' %}the template drafter{% else %}<code>{{ d.source }}</code>{% endif %}</p>
+  {% if saved %}<div class="flash">Decision saved to <code>reviews.jsonl</code>. <a href="/results">See results →</a></div>{% endif %}
+</section>
+
+<div class="card">
+  <h2>Why</h2>
+  <p>{{ d.rationale|ticks }}</p>
+  {% for n in d.notes %}<p class="small muted">{{ n }}</p>{% endfor %}
+  <table class="table compact">
+    <thead><tr><th>Supporting trace</th><th>Verdict</th><th>Reason</th></tr></thead>
+    <tbody>
+      {% for tid, v in cited %}
+      <tr><td><a class="mono" href="/traces/{{ tid }}">{{ tid }}</a></td><td>{{ badge(v.verdict) }}</td><td>{{ v.reason|ticks }}</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+<div class="card">
+  <h2>Change to <code>skills/{{ d.skill }}/SKILL.md</code></h2>
+  <div class="sbs">
+    <div class="sbs-head">Current</div><div class="sbs-head">Proposed</div>
+    {% for r in rows %}
+    <div class="sbs-cell {{ 'del' if r.kind != 'equal' and r.left is not none }}">{{ r.left if r.left is not none else '' }}</div>
+    <div class="sbs-cell {{ 'add' if r.kind != 'equal' and r.right is not none }}">{{ r.right if r.right is not none else '' }}</div>
+    {% endfor %}
+  </div>
+</div>
+
+<form class="card" method="post" action="/proposals/{{ d.id }}">
+  <h2>Review</h2>
+  <p class="small muted">Approve as is, or edit the unified diff below before approving. Nothing is written to the
+    skill file; the decision and the final diff go to <code>reviews.jsonl</code>.</p>
+  <textarea name="diff" rows="{{ [diff_text.count('\n') + 2, 24]|min }}" spellcheck="false">{{ diff_text }}</textarea>
+  <div class="actions">
+    <button class="button primary" name="action" value="approve">Approve</button>
+    <button class="button danger" name="action" value="reject">Reject</button>
+    <span class="small muted">Edited text is saved as an "edited" approval.</span>
+  </div>
+</form>
+{% endblock %}

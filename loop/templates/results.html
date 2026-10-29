@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% from "_macros.html" import pct, decision_chip %}
+{% block title %}Results · Skill Fix Loop{% endblock %}
+{% block content %}
+<section class="intro">
+  <h1>Results</h1>
+  <p>Success rate on the held-out traces (30% of runs, never used for mining) before and after the approved edits.</p>
+  <div class="warn"><b>Simulated replay.</b> No agent is re-run. A held-out failure counts as fixed when an approved
+    edit for its skill adds the fix marker for that failure's cause. Real gains would be smaller and need real reruns.</div>
+</section>
+
+<div class="card">
+  <table class="table">
+    <thead><tr><th>Skill</th><th class="num">Held-out runs</th><th class="num">Before</th><th class="num">After</th>
+      <th class="wide">Change</th><th>Fixed by cause</th></tr></thead>
+    <tbody>
+      {% for r in results %}
+      <tr>
+        <td><a class="strong" href="/skills/{{ r.skill }}">{{ r.skill }}</a>
+          <div class="small muted">{{ r.approved_edits }} approved edit{{ '' if r.approved_edits == 1 else 's' }}</div></td>
+        <td class="num">{{ r.heldout }}</td>
+        <td class="num big">{{ pct(r.before_rate) }}</td>
+        <td class="num big {{ 'up' if r.after > r.before }}">{{ pct(r.after_rate) }}</td>
+        <td class="wide">
+          <div class="compare">
+            <div class="cbar"><span class="before" style="width: {{ '%.1f'|format(100 * r.before_rate) }}%"></span></div>
+            <div class="cbar"><span class="after" style="width: {{ '%.1f'|format(100 * r.after_rate) }}%"></span></div>
+          </div>
+        </td>
+        <td class="small">{% for cause, n in r.fixed_by_cause.items() %}<div><code>{{ cause }}</code> +{{ n }}</div>{% else %}<span class="muted">none yet</span>{% endfor %}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <div class="legend"><span><i class="dot before"></i>Before</span><span><i class="dot after"></i>After approved edits</span></div>
+</div>
+
+<div class="grid3">
+  <div class="card metric"><b>{{ accuracy[0] }}/{{ accuracy[1] }}</b><span>verdict accuracy on the labeled eval set ({{ pct(accuracy[0] / accuracy[1]) }})</span></div>
+  <div class="card metric"><b>{{ pct(purity) }}</b><span>cluster purity vs. injected causes</span></div>
+  <div class="card metric">
+    {% if llm_on %}<b>{{ judge.moved }}/{{ judge.unknown }}</b><span>Unknown traces the LLM judge moved out of Unknown
+      {% if judge.labeled %}({{ judge.agree }}/{{ judge.labeled }} agree with labels){% endif %}</span>
+    {% else %}<b>off</b><span>LLM judge: set <code>LLM_MODEL</code> to judge the {{ judge.unknown }} Unknown traces</span>{% endif %}
+  </div>
+</div>
+
+<div class="card">
+  <div class="title-row">
+    <h2>Review log</h2>
+    <span class="small muted">{{ decisions.get('approved', 0) }} approved · {{ decisions.get('edited', 0) }} edited ·
+      {{ decisions.get('rejected', 0) }} rejected · {{ total_drafts - decisions.values()|sum }} pending</span>
+  </div>
+  {% if entries %}
+  <table class="table compact">
+    <thead><tr><th>Time (UTC)</th><th>Edit</th><th>Skill</th><th>Decision</th><th>Reviewer</th></tr></thead>
+    <tbody>
+      {% for e in entries %}
+      <tr><td class="mono small">{{ e.timestamp.replace('T', ' ')[:19] }}</td>
+        <td><a href="/proposals/{{ e.draft_id }}">{{ drafts[e.draft_id].title if e.draft_id in drafts else e.draft_id }}</a></td>
+        <td>{{ e.skill }}</td><td>{{ decision_chip(e.decision) }}</td><td class="muted">{{ e.reviewer }}</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <form method="post" action="/results/reset" class="actions">
+    <button class="button">Clear review log</button>
+  </form>
+  {% else %}
+  <p class="muted">No decisions yet. Open a skill and review its proposed edits.</p>
+  {% endif %}
+</div>
+{% endblock %}

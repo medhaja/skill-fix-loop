@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Skill Fix Loop{% endblock %}</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="wrap topbar-inner">
+      <a class="brand" href="/">Skill Fix Loop</a>
+      <nav>
+        <a href="/">Skills</a>
+        <a href="/results">Results</a>
+      </nav>
+      <span class="mode" title="Set LLM_MODEL in .env to enable the optional LLM judge and drafter">
+        {% if llm_on %}LLM: {{ llm_model }}{% else %}Offline mode: rules + template drafter{% endif %}
+      </span>
+    </div>
+  </header>
+  <main class="wrap">
+    {% block content %}{% endblock %}
+  </main>
+  <footer class="wrap footer">
+    Independent prototype built from public information and synthetic data. Not affiliated with Nessie.
+  </footer>
+</body>
+</html>

@@ -1,0 +1,23 @@
+{% macro badge(verdict) -%}
+<span class="badge v-{{ vclass[verdict] }}">{{ verdict }}</span>
+{%- endmacro %}
+
+{% macro bar(segments) -%}
+<div class="vbar">
+  {% for v, n, pct in segments %}
+  <span class="seg v-{{ vclass[v] }}" style="width: {{ '%.2f'|format(pct) }}%" title="{{ v }}: {{ n }}"></span>
+  {% endfor %}
+</div>
+{%- endmacro %}
+
+{% macro legend() -%}
+<div class="legend">
+  {% for v in verdicts %}<span><i class="dot v-{{ vclass[v] }}"></i>{{ v }}</span>{% endfor %}
+</div>
+{%- endmacro %}
+
+{% macro pct(x) -%}{{ '%.0f'|format(100 * x) }}%{%- endmacro %}
+
+{% macro decision_chip(decision) -%}
+{% if decision %}<span class="chip d-{{ decision }}">{{ decision }}</span>{% else %}<span class="chip d-pending">pending review</span>{% endif %}
+{%- endmacro %}

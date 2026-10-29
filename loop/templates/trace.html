@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% from "_macros.html" import badge %}
+{% block title %}{{ t.id }} · Skill Fix Loop{% endblock %}
+{% block content %}
+<p class="crumbs"><a href="/">Skills</a> / <a href="/skills/{{ t.skill }}">{{ t.skill }}</a> / trace {{ t.id }}</p>
+<section class="intro">
+  <div class="title-row"><h1 class="mono">{{ t.id }}</h1>{{ badge(v.verdict) }}</div>
+  <p class="muted">{{ t.skill }} · harness <code>{{ t.harness }}</code> · {{ t.split }} set
+    {% if cause %} · cause <a href="/proposals/{{ cause.id }}">{{ cause.label }}</a>{% endif %}</p>
+</section>
+
+<div class="card verdict-box">
+  <div><span class="muted">Rule</span> <code>{{ v.rule }}</code></div>
+  <div>{{ v.reason|ticks }}</div>
+  {% if v.judge_verdict %}<div><span class="muted">LLM judge (stored separately)</span> {{ badge(v.judge_verdict) }} {{ v.judge_reason }}</div>{% endif %}
+  {% if label %}<div class="small muted">Eval-set label: {{ label }}</div>{% endif %}
+</div>
+
+<div class="card">
+  <h2>Steps</h2>
+  {% if not t.steps %}<p class="muted">This trace has no steps.</p>{% endif %}
+  <ol class="trace">
+    {% for s in t.steps %}
+    <li class="step {{ 'fired' if v.step_index == loop.index0 }} {{ 'failed' if s.exit_code not in (0, none) }}">
+      <div class="step-head">
+        <span class="step-type">{{ s.type.replace('_', ' ') }}</span>
+        {% if s.tool %}<code>{{ s.tool }}</code>{% endif %}
+        {% if s.exit_code is not none %}<span class="exit {{ 'bad' if s.exit_code != 0 }}">exit {{ s.exit_code }}</span>{% endif %}
+        {% if v.step_index == loop.index0 %}<span class="fired-tag">rule fired here: {{ v.rule }}</span>{% endif %}
+      </div>
+      <pre class="in">{{ s.input }}</pre>
+      {% if s.type != 'prompt' %}<pre class="out">{{ s.output if s.output is not none else '(no output: run stopped here)' }}</pre>{% endif %}
+    </li>
+    {% endfor %}
+    <li class="step final {{ 'fired' if v.step_index == FINAL_OUTPUT }}">
+      <div class="step-head"><span class="step-type">final output</span>
+        {% if v.step_index == FINAL_OUTPUT %}<span class="fired-tag">rule fired here: {{ v.rule }}</span>{% endif %}</div>
+      <pre class="out">{{ t.final_output if t.final_output is not none else '(none)' }}</pre>
+    </li>
+  </ol>
+  <h3>Agent feedback</h3>
+  {% if t.agent_feedback %}
+  <p><span class="chip d-{{ 'approved' if t.agent_feedback.rating == 'success' else 'rejected' }}">{{ t.agent_feedback.rating }}</span>
+    "{{ t.agent_feedback.comment }}"</p>
+  <p class="small muted">Feedback is one signal; it never overrides an exit code or a missing output.</p>
+  {% else %}<p class="muted">None filed.</p>{% endif %}
+</div>
+
+<p class="small muted">Generator ground truth (not used by the rules): <code>{{ t.injected_cause or 'none' }}</code></p>
+{% endblock %}

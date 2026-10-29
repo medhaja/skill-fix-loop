@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% from "_macros.html" import badge, bar, legend, pct, decision_chip %}
+{% block title %}{{ row.name }} · Skill Fix Loop{% endblock %}
+{% block content %}
+<p class="crumbs"><a href="/">Skills</a> / {{ row.name }}</p>
+<section class="intro">
+  <h1>{{ row.name }}</h1>
+  <p>{{ row.description }}</p>
+  <div class="stats">
+    <div><b>{{ row.total }}</b><span>runs</span></div>
+    <div><b>{{ pct(row.success_rate) }}</b><span>success rate</span></div>
+    <div><b>{{ row.causes }}</b><span>failure causes</span></div>
+  </div>
+  {{ bar(row.bar) }}
+  {{ legend() }}
+</section>
+
+<h2>Failure causes <span class="muted small">mining set, ranked by count</span></h2>
+{% for item in causes %}
+{% set c = item.cause %}
+<div class="card cause">
+  <div class="cause-head">
+    <div class="count">{{ c.count }}<span>runs</span></div>
+    <div class="grow">
+      <h3>{{ c.label }}</h3>
+      <div class="sig"><span class="muted">signature</span> <code>{{ c.signature }}</code></div>
+    </div>
+    <div class="right">
+      {{ badge(c.verdict) }}
+      <a class="button" href="/proposals/{{ item.draft.id }}">Review edit →</a>
+      <div class="small">{{ decision_chip(item.decision) }}</div>
+    </div>
+  </div>
+  <div class="proposal-line"><span class="muted">Proposed edit:</span> {{ item.draft.title }}</div>
+  <table class="table compact">
+    <thead><tr><th>Example trace</th><th>Verdict reason</th><th>Error</th></tr></thead>
+    <tbody>
+      {% for tid, v, err in item.examples %}
+      <tr><td><a class="mono" href="/traces/{{ tid }}">{{ tid }}</a></td>
+        <td><code>{{ v.rule }}</code><div class="small">{{ v.reason|ticks }}</div></td>
+        <td class="mono small err">{{ err }}</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% else %}
+<p class="muted">No failures in the mining set.</p>
+{% endfor %}
+
+{% if workflows %}
+<h2>Repeated workflows <span class="muted small">flagged, not fixed</span></h2>
+{% for w in workflows %}
+<div class="card note">
+  <p><b>Candidate new skill.</b> {{ w.count }} successful runs do the same steps that this skill never mentions:</p>
+  <ol class="steps-inline">{% for cmd in w.commands %}<li><code>{{ cmd }}</code></li>{% endfor %}</ol>
+  <p class="small muted">Examples:
+    {% for tid in w.trace_ids[:3] %}<a class="mono" href="/traces/{{ tid }}">{{ tid }}</a>{% if not loop.last %}, {% endif %}{% endfor %}
+  </p>
+</div>
+{% endfor %}
+{% endif %}
+
+{% if triage %}
+<h2>Needs triage <span class="muted small">Unknown: no rule could decide</span></h2>
+<div class="card">
+  <table class="table compact">
+    <thead><tr><th>Trace</th><th>Rule</th><th>Reason</th><th>LLM judge</th></tr></thead>
+    <tbody>
+      {% for tid, v in triage %}
+      <tr><td><a class="mono" href="/traces/{{ tid }}">{{ tid }}</a></td><td><code>{{ v.rule }}</code></td><td>{{ v.reason|ticks }}</td>
+        <td>{% if v.judge_verdict %}{{ badge(v.judge_verdict) }}{% else %}<span class="muted">{{ 'not run' if not llm_on else 'n/a' }}</span>{% endif %}</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endif %}
+{% endblock %}

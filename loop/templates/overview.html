@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% from "_macros.html" import bar, legend, pct %}
+{% block content %}
+<section class="intro">
+  <h1>Skills</h1>
+  <p>Each run of a skill gets a rule-based verdict. Failures are grouped into causes, each cause gets a drafted
+    edit to the skill file, and a person approves or rejects it. Start with a skill below.</p>
+</section>
+
+<div class="card">
+  <table class="table">
+    <thead>
+      <tr><th>Skill</th><th class="num">Runs</th><th class="wide">Verdicts</th><th class="num">Success rate</th>
+        <th class="num">Causes</th><th class="num">Edits to review</th></tr>
+    </thead>
+    <tbody>
+      {% for r in rows %}
+      <tr>
+        <td><a class="strong" href="/skills/{{ r.name }}">{{ r.name }}</a>
+          <div class="muted small">{{ r.description }}</div>
+          {% if r.workflows %}<div class="small"><span class="chip d-candidate">candidate new skill</span></div>{% endif %}
+        </td>
+        <td class="num">{{ r.total }}<div class="muted small">{{ r.mining }} mining · {{ r.heldout }} held-out</div></td>
+        <td class="wide">{{ bar(r.bar) }}</td>
+        <td class="num big">{{ pct(r.success_rate) }}</td>
+        <td class="num">{{ r.causes }}</td>
+        <td class="num">{% if r.pending %}<a href="/skills/{{ r.name }}">{{ r.pending }} pending</a>{% else %}<span class="muted">none</span>{% endif %}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {{ legend() }}
+</div>
+{% endblock %}
