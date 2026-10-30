@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Skill Fix Loop: walkthrough</title>
+<meta name="description" content="Groups failed agent skill runs by cause, drafts a skill edit backed by evidence traces, and sends it to a human for review.">
+<meta property="og:title" content="Skill Fix Loop: walkthrough (3:44)">
+<meta property="og:description" content="Groups failed agent skill runs by cause, drafts a skill edit backed by evidence traces, and sends it to a human for review.">
+<style>
+  :root { color-scheme: dark; --bg: #0F141B; --panel: #171E28; --ink: #EEF1F4; --muted: #9AA4B2; --line: #283241; --accent: #7AA2FF; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 16px/1.55 system-ui, "Segoe UI", Helvetica, Arial, sans-serif; }
+  main { max-width: 1120px; margin: 0 auto; padding: 32px 20px 56px; }
+  h1 { font-size: clamp(1.6rem, 3vw, 2.2rem); line-height: 1.15; margin: 0 0 6px; letter-spacing: -0.01em; }
+  .sub { color: var(--muted); margin: 0 0 22px; max-width: 70ch; }
+  video { width: 100%; aspect-ratio: 16 / 9; background: #000; border-radius: 10px; display: block; }
+  .meta { display: flex; flex-wrap: wrap; gap: 8px 20px; margin: 14px 0 26px; color: var(--muted); font-size: .95rem; }
+  .meta a { color: var(--accent); }
+  h2 { font-size: 1.05rem; margin: 0 0 10px; }
+  ol { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 8px; }
+  ol button { width: 100%; text-align: left; background: var(--panel); color: var(--ink); border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; font: inherit; cursor: pointer; display: flex; gap: 12px; }
+  ol button:hover, ol button:focus-visible { border-color: var(--accent); outline: none; }
+  .t { color: var(--accent); font-variant-numeric: tabular-nums; min-width: 3.2em; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Skill Fix Loop</h1>
+  <p class="sub">Groups failed agent skill runs by cause, drafts a skill edit backed by evidence traces, and sends it to a human for review.</p>
+  <video id="v" controls preload="metadata" playsinline poster="kt-video/poster.jpg">
+    <source src="kt-video/kt-video.mp4" type="video/mp4">
+    <track kind="captions" srclang="en" label="English" src="kt-video/captions.vtt">
+  </video>
+  <div class="meta"><span>3:44</span><a href="https://github.com/medhaja/skill-fix-loop">Code on GitHub</a><a href="kt-video/kt-video.mp4" download>Download the MP4</a></div>
+  <h2>Chapters</h2><ol><li><button type="button" data-t="0"><span class="t">0:00</span>The missing step</button></li>
+<li><button type="button" data-t="26"><span class="t">0:26</span>Architecture</button></li>
+<li><button type="button" data-t="54"><span class="t">0:54</span>One run gets a verdict</button></li>
+<li><button type="button" data-t="84"><span class="t">1:24</span>From failures to causes</button></li>
+<li><button type="button" data-t="111"><span class="t">1:51</span>Draft, review, replay</button></li>
+<li><button type="button" data-t="145"><span class="t">2:25</span>Run it</button></li>
+<li><button type="button" data-t="161"><span class="t">2:41</span>Gotchas and limitations</button></li>
+<li><button type="button" data-t="196"><span class="t">3:16</span>Recap and next steps</button></li></ol>
+</main>
+<script>
+  const v = document.getElementById("v");
+  for (const b of document.querySelectorAll("button[data-t]")) {
+    b.addEventListener("click", () => { v.currentTime = Number(b.dataset.t); v.play(); v.scrollIntoView({ behavior: "smooth", block: "center" }); });
+  }
+</script>
+</body>
+</html>

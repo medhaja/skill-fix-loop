@@ -1,5 +1,11 @@
 # Skill Fix Loop
 
+<!-- walkthrough-video -->
+[![Watch the 3:44 walkthrough](docs/kt-video/poster.jpg)](https://medhaja.github.io/skill-fix-loop/)
+
+**[Watch the 3:44 walkthrough](https://medhaja.github.io/skill-fix-loop/)** (plays in your browser)
+<!-- /walkthrough-video -->
+
 **Run the demo:**
 
 ```bash
