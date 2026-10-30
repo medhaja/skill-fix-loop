@@ -58,9 +58,9 @@ function chapters() {
 }
 
 function narration() {
-  // Concatenate scene WAVs in order, each padded with timing.pad seconds of silence.
+  // Concatenate scene WAVs in order, each followed by its padding of silence (the last scene holds longer).
   const inputs = timing.scenes.flatMap(sc => ["-i", join(HERE, "audio", `scene_${String(sc.n).padStart(2, "0")}.wav`)]);
-  const pads = timing.scenes.map((sc, i) => `[${i}:a]apad=pad_dur=${timing.pad}[a${i}]`).join(";");
+  const pads = timing.scenes.map((sc, i) => `[${i}:a]apad=pad_dur=${sc.pad ?? timing.pad}[a${i}]`).join(";");
   const concat = timing.scenes.map((_, i) => `[a${i}]`).join("") + `concat=n=${timing.scenes.length}:v=0:a=1[out]`;
   const file = join(OUT, "narration.wav");
   run("ffmpeg", ["-y", "-loglevel", "error", ...inputs, "-filter_complex", `${pads};${concat}`, "-map", "[out]", "-ar", "24000", file]);

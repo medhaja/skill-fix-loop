@@ -199,21 +199,25 @@ To recap.
 Every verdict names its rule.
 
 51
-00:03:18,739 --> 00:03:20,873
+00:03:18,739 --> 00:03:20,872
 Failures become a few named causes.
 
 52
-00:03:20,873 --> 00:03:23,825
+00:03:20,872 --> 00:03:23,825
 Each cause gets one diff, backed by trace IDs.
 
 53
-00:03:23,825 --> 00:03:26,837
+00:03:23,825 --> 00:03:26,838
 A person decides, and every decision is logged.
 
 54
-00:03:26,837 --> 00:03:29,297
+00:03:26,838 --> 00:03:29,299
 And success is measured on held-out runs.
 
 55
-00:03:29,297 --> 00:03:40,392
+00:03:29,299 --> 00:03:40,394
 Next steps: real agent reruns instead of simulated replay, checking the judge against human labels, normalizers for each harness, and deciding who may approve edits to shared skills.
+
+56
+00:03:40,394 --> 00:03:41,211
+Thank you.

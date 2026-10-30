@@ -715,19 +715,31 @@ const RECAP = [["Every verdict names its rule", "var(--data)"], ["Failures → a
 const NEXT = ["Real agent reruns", "Judge vs. human labels", "Per-harness normalizers", "Who may approve shared skills"];
 SCENES.push({
   beats: b => ({ r: [b("Every verdict"), b("Failures become"), b("Each cause gets"), b("A person decides"), b("success is measured")],
-    next: b("Next steps"), n: [b("real agent reruns"), b("checking the judge"), b("normalizers"), b("deciding who")] }),
+    next: b("Next steps"), n: [b("real agent reruns"), b("checking the judge"), b("normalizers"), b("deciding who")],
+    thanks: b("Thank you") }),
   html: `
-    <div class="h1">Recap</div>
-    <div class="abs" style="left:80px;top:220px">
-      ${RECAP.map(([t, c], i) => `<div k="r${i}" class="recap"><i style="background:${c}"></i>${t}</div>`).join("")}
+    <div k="recap">
+      <div class="h1">Recap</div>
+      <div class="abs" style="left:80px;top:220px">
+        ${RECAP.map(([t, c], i) => `<div k="r${i}" class="recap"><i style="background:${c}"></i>${t}</div>`).join("")}
+      </div>
+      <div k="nexth" class="abs plabel" style="left:80px;top:770px">Next steps</div>
+      <div class="abs" style="left:80px;top:820px">${NEXT.map((n, i) => `<span k="n${i}" class="next">${n}</span>`).join("")}</div>
     </div>
-    <div k="nexth" class="abs plabel" style="left:80px;top:770px">Next steps</div>
-    <div class="abs" style="left:80px;top:820px">${NEXT.map((n, i) => `<span k="n${i}" class="next">${n}</span>`).join("")}</div>
+    <div k="end" class="abs" style="left:0;right:0;top:330px;text-align:center">
+      <div style="font:600 120px var(--display);letter-spacing:-.01em">Thank you</div>
+      <div style="width:120px;height:4px;border-radius:2px;background:var(--data);margin:34px auto 34px"></div>
+      <div style="font:400 34px var(--body);color:var(--soft)">Made by <span style="color:var(--text);font-weight:600">Medhaja H L</span></div>
+      <div class="mono muted" style="font-size:20px;margin-top:22px">Skill Fix Loop</div>
+    </div>
     <div k="foot" class="abs muted" style="left:80px;top:960px;font:20px var(--body)">Independent prototype built from public information and synthetic data. Not affiliated with Nessie.</div>`,
   update(lt, E, B) {
     B.r.forEach((t, i) => show(E["r" + i], prog(lt, t - 0.2), 14));
     show(E.nexth, prog(lt, B.next - 0.2), 8);
     B.n.forEach((t, i) => show(E["n" + i], prog(lt, t - 0.2), 10));
+    const out = 1 - prog(lt, B.thanks - 0.5, 0.5);
+    E.recap.style.opacity = out; E.recap.style.visibility = out < 0.001 ? "hidden" : "visible";
+    show(E.end, prog(lt, B.thanks - 0.05, 0.7), 20);
     show(E.foot, prog(lt, B.n[3] + 1.0), 0);
   },
 });

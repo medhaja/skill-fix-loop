@@ -25,6 +25,7 @@ AUDIO = HERE / "audio"
 SR = 24000
 VOICE = "af_heart"
 PAD = 0.6  # seconds of silence after each scene
+END_HOLD = 3.0  # the last scene holds longer so the closing card can be read
 SPEED = 1.08  # slightly faster than default to keep the video under four minutes
 
 # Narration is respelled for the voice; captions show the written form.
@@ -107,16 +108,17 @@ def srt_time(t: float) -> str:
 
 def build_timing(scenes: list[dict]) -> dict:
     timing, start = {"fps": 30, "pad": PAD, "scenes": []}, 0.0
-    for sc in scenes:
+    for i, sc in enumerate(scenes):
         wav = AUDIO / f"scene_{sc['n']:02d}.wav"
         dur = sf.info(wav).frames / SR
+        pad = END_HOLD if i == len(scenes) - 1 else PAD
         sents = json.loads((AUDIO / f"scene_{sc['n']:02d}.json").read_text(encoding="utf-8"))
         timing["scenes"].append({
             "n": sc["n"], "title": sc["title"], "chapter": sc["chapter"],
-            "start": round(start, 3), "audio": round(dur, 3), "duration": round(dur + PAD, 3),
+            "start": round(start, 3), "audio": round(dur, 3), "pad": pad, "duration": round(dur + pad, 3),
             "sentences": sents,
         })
-        start += dur + PAD
+        start += dur + pad
     timing["total"] = round(start, 3)
     return timing
 

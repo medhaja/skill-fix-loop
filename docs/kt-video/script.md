@@ -234,7 +234,7 @@ fixed.
 To recap. Every verdict names its rule. Failures become a few named causes. Each cause gets one diff, backed by
 trace IDs. A person decides, and every decision is logged. And success is measured on held-out runs. Next steps:
 real agent reruns instead of simulated replay, checking the judge against human labels, normalizers for each
-harness, and deciding who may approve edits to shared skills.
+harness, and deciding who may approve edits to shared skills. Thank you.
 
 **On screen:**
 - Five takeaways appear one by one, each with its accent color:
@@ -245,8 +245,11 @@ harness, and deciding who may approve edits to shared skills.
   5. Success measured on held-out runs
 - At "Next steps": four chips: "Real reruns" · "Judge vs. human labels" · "Per-harness normalizers" ·
   "Approval permissions".
+- At "Thank you": the recap fades out and a closing card appears: "Thank you" and "Made by Medhaja H L", with the
+  not-affiliated line below. The last scene holds 3 s after the audio so the card can be read.
 
 **Sources:**
+- Credit: the author named in the project instructions (no code claim).
 - Takeaways: `loop/verdict.py:35-42`, `loop/cluster.py:184-223`, `loop/drafter.py:184-206`, `loop/review.py:249-263`,
   `loop/replay.py:332-350`
 - Next steps: `README.md:133-139`, `PRD.md:111`
