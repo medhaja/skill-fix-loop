@@ -1,0 +1,4207 @@
+{
+ "fps": 30,
+ "pad": 0.6,
+ "scenes": [
+  {
+   "n": 1,
+   "title": "The missing step",
+   "chapter": "01 / The problem",
+   "start": 0.0,
+   "audio": 25.977,
+   "duration": 26.577,
+   "sentences": [
+    {
+     "text": "Nessie already measures skills.",
+     "caption": "Nessie already measures skills.",
+     "start": 0.0,
+     "end": 1.728,
+     "words": [
+      {
+       "w": "Nessie",
+       "start": 0.043,
+       "end": 0.331
+      },
+      {
+       "w": "already",
+       "start": 0.331,
+       "end": 0.643
+      },
+      {
+       "w": "measures",
+       "start": 0.643,
+       "end": 0.993
+      },
+      {
+       "w": "skills",
+       "start": 0.993,
+       "end": 1.693
+      },
+      {
+       "w": ".",
+       "start": 1.693,
+       "end": 1.843
+      }
+     ]
+    },
+    {
+     "text": "Its public changelog shows success analytics per skill.",
+     "caption": "Its public changelog shows success analytics per skill.",
+     "start": 1.728,
+     "end": 5.123,
+     "words": [
+      {
+       "w": "Its",
+       "start": 1.736,
+       "end": 1.936
+      },
+      {
+       "w": "public",
+       "start": 1.936,
+       "end": 2.311
+      },
+      {
+       "w": "changelog",
+       "start": 2.311,
+       "end": 3.098
+      },
+      {
+       "w": "shows",
+       "start": 3.098,
+       "end": 3.386
+      },
+      {
+       "w": "success",
+       "start": 3.386,
+       "end": 3.836
+      },
+      {
+       "w": "analytics",
+       "start": 3.836,
+       "end": 4.336
+      },
+      {
+       "w": "per",
+       "start": 4.336,
+       "end": 4.498
+      },
+      {
+       "w": "skill",
+       "start": 4.498,
+       "end": 5.136
+      },
+      {
+       "w": ".",
+       "start": 5.136,
+       "end": 5.286
+      }
+     ]
+    },
+    {
+     "text": "Its Skill ee-vals docs give every run a verdict: Success, Skill error, Unexpected behavior, Other error, or Unknown.",
+     "caption": "Its Skill Evals docs give every run a verdict: Success, Skill error, Unexpected behavior, Other error, or Unknown.",
+     "start": 5.123,
+     "end": 12.611,
+     "words": [
+      {
+       "w": "Its",
+       "start": 5.128,
+       "end": 5.303
+      },
+      {
+       "w": "Skill",
+       "start": 5.303,
+       "end": 5.603
+      },
+      {
+       "w": "ee-vals",
+       "start": 5.603,
+       "end": 6.053
+      },
+      {
+       "w": "docs",
+       "start": 6.053,
+       "end": 6.428
+      },
+      {
+       "w": "give",
+       "start": 6.428,
+       "end": 6.641
+      },
+      {
+       "w": "every",
+       "start": 6.641,
+       "end": 6.953
+      },
+      {
+       "w": "run",
+       "start": 6.953,
+       "end": 7.116
+      },
+      {
+       "w": "a",
+       "start": 7.116,
+       "end": 7.178
+      },
+      {
+       "w": "verdict",
+       "start": 7.178,
+       "end": 7.953
+      },
+      {
+       "w": ":",
+       "start": 7.953,
+       "end": 8.091
+      },
+      {
+       "w": "Success",
+       "start": 8.091,
+       "end": 8.753
+      },
+      {
+       "w": ",",
+       "start": 8.753,
+       "end": 8.866
+      },
+      {
+       "w": "Skill",
+       "start": 8.866,
+       "end": 9.178
+      },
+      {
+       "w": "error",
+       "start": 9.178,
+       "end": 9.603
+      },
+      {
+       "w": ",",
+       "start": 9.603,
+       "end": 9.703
+      },
+      {
+       "w": "Unexpected",
+       "start": 9.703,
+       "end": 10.316
+      },
+      {
+       "w": "behavior",
+       "start": 10.316,
+       "end": 10.928
+      },
+      {
+       "w": ",",
+       "start": 10.928,
+       "end": 11.003
+      },
+      {
+       "w": "Other",
+       "start": 11.003,
+       "end": 11.303
+      },
+      {
+       "w": "error",
+       "start": 11.303,
+       "end": 11.628
+      },
+      {
+       "w": ",",
+       "start": 11.628,
+       "end": 11.703
+      },
+      {
+       "w": "or",
+       "start": 11.703,
+       "end": 11.853
+      },
+      {
+       "w": "Unknown",
+       "start": 11.853,
+       "end": 12.628
+      },
+      {
+       "w": ".",
+       "start": 12.628,
+       "end": 12.753
+      }
+     ]
+    },
+    {
+     "text": "What the public docs don't describe is the next step: turning those failures into fixes a person can review.",
+     "caption": "What the public docs don't describe is the next step: turning those failures into fixes a person can review.",
+     "start": 12.611,
+     "end": 18.954,
+     "words": [
+      {
+       "w": "What",
+       "start": 12.622,
+       "end": 12.735
+      },
+      {
+       "w": "the",
+       "start": 12.735,
+       "end": 12.822
+      },
+      {
+       "w": "public",
+       "start": 12.822,
+       "end": 13.222
+      },
+      {
+       "w": "docs",
+       "start": 13.222,
+       "end": 13.597
+      },
+      {
+       "w": "don't",
+       "start": 13.597,
+       "end": 13.847
+      },
+      {
+       "w": "describe",
+       "start": 13.847,
+       "end": 14.397
+      },
+      {
+       "w": "is",
+       "start": 14.397,
+       "end": 14.535
+      },
+      {
+       "w": "the",
+       "start": 14.535,
+       "end": 14.622
+      },
+      {
+       "w": "next",
+       "start": 14.622,
+       "end": 14.885
+      },
+      {
+       "w": "step",
+       "start": 14.885,
+       "end": 15.497
+      },
+      {
+       "w": ":",
+       "start": 15.497,
+       "end": 15.635
+      },
+      {
+       "w": "turning",
+       "start": 15.635,
+       "end": 15.947
+      },
+      {
+       "w": "those",
+       "start": 15.947,
+       "end": 16.172
+      },
+      {
+       "w": "failures",
+       "start": 16.172,
+       "end": 16.61
+      },
+      {
+       "w": "into",
+       "start": 16.61,
+       "end": 16.822
+      },
+      {
+       "w": "fixes",
+       "start": 16.822,
+       "end": 17.547
+      },
+      {
+       "w": "a",
+       "start": 17.547,
+       "end": 17.672
+      },
+      {
+       "w": "person",
+       "start": 17.672,
+       "end": 18.122
+      },
+      {
+       "w": "can",
+       "start": 18.122,
+       "end": 18.297
+      },
+      {
+       "w": "review",
+       "start": 18.297,
+       "end": 18.922
+      },
+      {
+       "w": ".",
+       "start": 18.922,
+       "end": 19.097
+      }
+     ]
+    },
+    {
+     "text": "Skill Fix Loop is a prototype of that step.",
+     "caption": "Skill Fix Loop is a prototype of that step.",
+     "start": 18.954,
+     "end": 21.488,
+     "words": [
+      {
+       "w": "Skill",
+       "start": 19.033,
+       "end": 19.308
+      },
+      {
+       "w": "Fix",
+       "start": 19.308,
+       "end": 19.558
+      },
+      {
+       "w": "Loop",
+       "start": 19.558,
+       "end": 19.946
+      },
+      {
+       "w": "is",
+       "start": 19.946,
+       "end": 20.071
+      },
+      {
+       "w": "a",
+       "start": 20.071,
+       "end": 20.133
+      },
+      {
+       "w": "prototype",
+       "start": 20.133,
+       "end": 20.621
+      },
+      {
+       "w": "of",
+       "start": 20.621,
+       "end": 20.696
+      },
+      {
+       "w": "that",
+       "start": 20.696,
+       "end": 20.908
+      },
+      {
+       "w": "step",
+       "start": 20.908,
+       "end": 21.458
+      },
+      {
+       "w": ".",
+       "start": 21.458,
+       "end": 21.608
+      }
+     ]
+    },
+    {
+     "text": "It runs locally, on synthetic data, and it isn't affiliated with Nessie.",
+     "caption": "It runs locally, on synthetic data, and it isn't affiliated with Nessie.",
+     "start": 21.488,
+     "end": 25.977,
+     "words": [
+      {
+       "w": "It",
+       "start": 21.493,
+       "end": 21.643
+      },
+      {
+       "w": "runs",
+       "start": 21.643,
+       "end": 22.031
+      },
+      {
+       "w": "locally",
+       "start": 22.031,
+       "end": 22.643
+      },
+      {
+       "w": ",",
+       "start": 22.643,
+       "end": 22.743
+      },
+      {
+       "w": "on",
+       "start": 22.743,
+       "end": 22.943
+      },
+      {
+       "w": "synthetic",
+       "start": 22.943,
+       "end": 23.493
+      },
+      {
+       "w": "data",
+       "start": 23.493,
+       "end": 24.018
+      },
+      {
+       "w": ",",
+       "start": 24.018,
+       "end": 24.143
+      },
+      {
+       "w": "and",
+       "start": 24.143,
+       "end": 24.256
+      },
+      {
+       "w": "it",
+       "start": 24.256,
+       "end": 24.343
+      },
+      {
+       "w": "isn't",
+       "start": 24.343,
+       "end": 24.581
+      },
+      {
+       "w": "affiliated",
+       "start": 24.581,
+       "end": 25.206
+      },
+      {
+       "w": "with",
+       "start": 25.206,
+       "end": 25.368
+      },
+      {
+       "w": "Nessie",
+       "start": 25.368,
+       "end": 26.018
+      },
+      {
+       "w": ".",
+       "start": 26.018,
+       "end": 26.143
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "n": 2,
+   "title": "Architecture",
+   "chapter": "02 / Architecture",
+   "start": 26.577,
+   "audio": 27.593,
+   "duration": 28.193,
+   "sentences": [
+    {
+     "text": "Here's the shape.",
+     "caption": "Here's the shape.",
+     "start": 0.0,
+     "end": 1.059,
+     "words": [
+      {
+       "w": "Here's",
+       "start": 0.046,
+       "end": 0.308
+      },
+      {
+       "w": "the",
+       "start": 0.308,
+       "end": 0.433
+      },
+      {
+       "w": "shape",
+       "start": 0.433,
+       "end": 1.021
+      },
+      {
+       "w": ".",
+       "start": 1.021,
+       "end": 1.196
+      }
+     ]
+    },
+    {
+     "text": "Traces come in as Jason lines.",
+     "caption": "Traces come in as JSON lines.",
+     "start": 1.059,
+     "end": 3.022,
+     "words": [
+      {
+       "w": "Traces",
+       "start": 1.096,
+       "end": 1.496
+      },
+      {
+       "w": "come",
+       "start": 1.496,
+       "end": 1.634
+      },
+      {
+       "w": "in",
+       "start": 1.634,
+       "end": 1.821
+      },
+      {
+       "w": "as",
+       "start": 1.821,
+       "end": 1.971
+      },
+      {
+       "w": "Jason",
+       "start": 1.971,
+       "end": 2.346
+      },
+      {
+       "w": "lines",
+       "start": 2.346,
+       "end": 2.996
+      },
+      {
+       "w": ".",
+       "start": 2.996,
+       "end": 3.146
+      }
+     ]
+    },
+    {
+     "text": "Rules give every run a verdict.",
+     "caption": "Rules give every run a verdict.",
+     "start": 3.022,
+     "end": 4.946,
+     "words": [
+      {
+       "w": "Rules",
+       "start": 3.08,
+       "end": 3.43
+      },
+      {
+       "w": "give",
+       "start": 3.43,
+       "end": 3.668
+      },
+      {
+       "w": "every",
+       "start": 3.668,
+       "end": 3.98
+      },
+      {
+       "w": "run",
+       "start": 3.98,
+       "end": 4.168
+      },
+      {
+       "w": "a",
+       "start": 4.168,
+       "end": 4.23
+      },
+      {
+       "w": "verdict",
+       "start": 4.23,
+       "end": 4.906
+      },
+      {
+       "w": ".",
+       "start": 4.906,
+       "end": 5.056
+      }
+     ]
+    },
+    {
+     "text": "Failures are grouped into causes, and each cause gets one drafted edit to the skill file.",
+     "caption": "Failures are grouped into causes, and each cause gets one drafted edit to the skill file.",
+     "start": 4.946,
+     "end": 10.091,
+     "words": [
+      {
+       "w": "Failures",
+       "start": 4.958,
+       "end": 5.483
+      },
+      {
+       "w": "are",
+       "start": 5.483,
+       "end": 5.621
+      },
+      {
+       "w": "grouped",
+       "start": 5.621,
+       "end": 5.921
+      },
+      {
+       "w": "into",
+       "start": 5.921,
+       "end": 6.133
+      },
+      {
+       "w": "causes",
+       "start": 6.133,
+       "end": 6.933
+      },
+      {
+       "w": ",",
+       "start": 6.933,
+       "end": 7.033
+      },
+      {
+       "w": "and",
+       "start": 7.033,
+       "end": 7.171
+      },
+      {
+       "w": "each",
+       "start": 7.171,
+       "end": 7.408
+      },
+      {
+       "w": "cause",
+       "start": 7.408,
+       "end": 7.808
+      },
+      {
+       "w": "gets",
+       "start": 7.808,
+       "end": 8.071
+      },
+      {
+       "w": "one",
+       "start": 8.071,
+       "end": 8.308
+      },
+      {
+       "w": "drafted",
+       "start": 8.308,
+       "end": 8.758
+      },
+      {
+       "w": "edit",
+       "start": 8.758,
+       "end": 9.083
+      },
+      {
+       "w": "to",
+       "start": 9.083,
+       "end": 9.171
+      },
+      {
+       "w": "the",
+       "start": 9.171,
+       "end": 9.258
+      },
+      {
+       "w": "skill",
+       "start": 9.258,
+       "end": 9.533
+      },
+      {
+       "w": "file",
+       "start": 9.533,
+       "end": 10.108
+      },
+      {
+       "w": ".",
+       "start": 10.108,
+       "end": 10.233
+      }
+     ]
+    },
+    {
+     "text": "All of that runs once, at startup.",
+     "caption": "All of that runs once, at startup.",
+     "start": 10.091,
+     "end": 12.032,
+     "words": [
+      {
+       "w": "All",
+       "start": 10.127,
+       "end": 10.289
+      },
+      {
+       "w": "of",
+       "start": 10.289,
+       "end": 10.364
+      },
+      {
+       "w": "that",
+       "start": 10.364,
+       "end": 10.514
+      },
+      {
+       "w": "runs",
+       "start": 10.514,
+       "end": 10.777
+      },
+      {
+       "w": "once",
+       "start": 10.777,
+       "end": 11.127
+      },
+      {
+       "w": ",",
+       "start": 11.127,
+       "end": 11.202
+      },
+      {
+       "w": "at",
+       "start": 11.202,
+       "end": 11.327
+      },
+      {
+       "w": "startup",
+       "start": 11.327,
+       "end": 11.977
+      },
+      {
+       "w": ".",
+       "start": 11.977,
+       "end": 12.127
+      }
+     ]
+    },
+    {
+     "text": "Then a person approves or rejects each edit, and replay reports success before and after, on held-out traces.",
+     "caption": "Then a person approves or rejects each edit, and replay reports success before and after, on held-out traces.",
+     "start": 12.032,
+     "end": 18.845,
+     "words": [
+      {
+       "w": "Then",
+       "start": 12.046,
+       "end": 12.196
+      },
+      {
+       "w": "a",
+       "start": 12.196,
+       "end": 12.271
+      },
+      {
+       "w": "person",
+       "start": 12.271,
+       "end": 12.721
+      },
+      {
+       "w": "approves",
+       "start": 12.721,
+       "end": 13.308
+      },
+      {
+       "w": "or",
+       "start": 13.308,
+       "end": 13.471
+      },
+      {
+       "w": "rejects",
+       "start": 13.471,
+       "end": 13.896
+      },
+      {
+       "w": "each",
+       "start": 13.896,
+       "end": 14.121
+      },
+      {
+       "w": "edit",
+       "start": 14.121,
+       "end": 14.746
+      },
+      {
+       "w": ",",
+       "start": 14.746,
+       "end": 14.846
+      },
+      {
+       "w": "and",
+       "start": 14.846,
+       "end": 14.971
+      },
+      {
+       "w": "replay",
+       "start": 14.971,
+       "end": 15.396
+      },
+      {
+       "w": "reports",
+       "start": 15.396,
+       "end": 15.846
+      },
+      {
+       "w": "success",
+       "start": 15.846,
+       "end": 16.346
+      },
+      {
+       "w": "before",
+       "start": 16.346,
+       "end": 16.758
+      },
+      {
+       "w": "and",
+       "start": 16.758,
+       "end": 16.871
+      },
+      {
+       "w": "after",
+       "start": 16.871,
+       "end": 17.396
+      },
+      {
+       "w": ",",
+       "start": 17.396,
+       "end": 17.496
+      },
+      {
+       "w": "on",
+       "start": 17.496,
+       "end": 17.646
+      },
+      {
+       "w": "held-out",
+       "start": 17.646,
+       "end": 18.046
+      },
+      {
+       "w": "traces",
+       "start": 18.046,
+       "end": 18.821
+      },
+      {
+       "w": ".",
+       "start": 18.821,
+       "end": 18.946
+      }
+     ]
+    },
+    {
+     "text": "An L-L-M can help in just two places: judging runs the rules leave as Unknown, and wording the edit.",
+     "caption": "An LLM can help in just two places: judging runs the rules leave as Unknown, and wording the edit.",
+     "start": 18.845,
+     "end": 24.956,
+     "words": [
+      {
+       "w": "An",
+       "start": 18.872,
+       "end": 19.009
+      },
+      {
+       "w": "L-L-M",
+       "start": 19.009,
+       "end": 19.547
+      },
+      {
+       "w": "can",
+       "start": 19.547,
+       "end": 19.672
+      },
+      {
+       "w": "help",
+       "start": 19.672,
+       "end": 19.934
+      },
+      {
+       "w": "in",
+       "start": 19.934,
+       "end": 20.022
+      },
+      {
+       "w": "just",
+       "start": 20.022,
+       "end": 20.222
+      },
+      {
+       "w": "two",
+       "start": 20.222,
+       "end": 20.397
+      },
+      {
+       "w": "places",
+       "start": 20.397,
+       "end": 21.247
+      },
+      {
+       "w": ":",
+       "start": 21.247,
+       "end": 21.384
+      },
+      {
+       "w": "judging",
+       "start": 21.384,
+       "end": 21.772
+      },
+      {
+       "w": "runs",
+       "start": 21.772,
+       "end": 22.097
+      },
+      {
+       "w": "the",
+       "start": 22.097,
+       "end": 22.234
+      },
+      {
+       "w": "rules",
+       "start": 22.234,
+       "end": 22.634
+      },
+      {
+       "w": "leave",
+       "start": 22.634,
+       "end": 22.884
+      },
+      {
+       "w": "as",
+       "start": 22.884,
+       "end": 23.022
+      },
+      {
+       "w": "Unknown",
+       "start": 23.022,
+       "end": 23.722
+      },
+      {
+       "w": ",",
+       "start": 23.722,
+       "end": 23.822
+      },
+      {
+       "w": "and",
+       "start": 23.822,
+       "end": 23.947
+      },
+      {
+       "w": "wording",
+       "start": 23.947,
+       "end": 24.259
+      },
+      {
+       "w": "the",
+       "start": 24.259,
+       "end": 24.372
+      },
+      {
+       "w": "edit",
+       "start": 24.372,
+       "end": 24.947
+      },
+      {
+       "w": ".",
+       "start": 24.947,
+       "end": 25.097
+      }
+     ]
+    },
+    {
+     "text": "Both stay off unless a model is configured.",
+     "caption": "Both stay off unless a model is configured.",
+     "start": 24.956,
+     "end": 27.593,
+     "words": [
+      {
+       "w": "Both",
+       "start": 24.964,
+       "end": 25.239
+      },
+      {
+       "w": "stay",
+       "start": 25.239,
+       "end": 25.514
+      },
+      {
+       "w": "off",
+       "start": 25.514,
+       "end": 25.851
+      },
+      {
+       "w": "unless",
+       "start": 25.851,
+       "end": 26.176
+      },
+      {
+       "w": "a",
+       "start": 26.176,
+       "end": 26.239
+      },
+      {
+       "w": "model",
+       "start": 26.239,
+       "end": 26.614
+      },
+      {
+       "w": "is",
+       "start": 26.614,
+       "end": 26.764
+      },
+      {
+       "w": "configured",
+       "start": 26.764,
+       "end": 27.589
+      },
+      {
+       "w": ".",
+       "start": 27.589,
+       "end": 27.739
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "n": 3,
+   "title": "One run gets a verdict",
+   "chapter": "03 / Request flow: verdict",
+   "start": 54.769,
+   "audio": 28.814,
+   "duration": 29.414,
+   "sentences": [
+    {
+     "text": "Let's follow one run, trace dep zero eight six.",
+     "caption": "Let's follow one run, trace dep-086.",
+     "start": 0.0,
+     "end": 2.89,
+     "words": [
+      {
+       "w": "Let's",
+       "start": 0.023,
+       "end": 0.248
+      },
+      {
+       "w": "follow",
+       "start": 0.248,
+       "end": 0.548
+      },
+      {
+       "w": "one",
+       "start": 0.548,
+       "end": 0.748
+      },
+      {
+       "w": "run",
+       "start": 0.748,
+       "end": 1.148
+      },
+      {
+       "w": ",",
+       "start": 1.148,
+       "end": 1.248
+      },
+      {
+       "w": "trace",
+       "start": 1.248,
+       "end": 1.523
+      },
+      {
+       "w": "dep",
+       "start": 1.523,
+       "end": 1.748
+      },
+      {
+       "w": "zero",
+       "start": 1.748,
+       "end": 2.023
+      },
+      {
+       "w": "eight",
+       "start": 2.023,
+       "end": 2.235
+      },
+      {
+       "w": "six",
+       "start": 2.235,
+       "end": 2.848
+      },
+      {
+       "w": ".",
+       "start": 2.848,
+       "end": 2.973
+      }
+     ]
+    },
+    {
+     "text": "The agent checks the branch, installs, builds, then runs ver-sell deploy with dash dash preview.",
+     "caption": "The agent checks the branch, installs, builds, then runs vercel deploy with --preview.",
+     "start": 2.89,
+     "end": 8.461,
+     "words": [
+      {
+       "w": "The",
+       "start": 2.904,
+       "end": 3.028
+      },
+      {
+       "w": "agent",
+       "start": 3.028,
+       "end": 3.354
+      },
+      {
+       "w": "checks",
+       "start": 3.354,
+       "end": 3.641
+      },
+      {
+       "w": "the",
+       "start": 3.641,
+       "end": 3.729
+      },
+      {
+       "w": "branch",
+       "start": 3.729,
+       "end": 4.228
+      },
+      {
+       "w": ",",
+       "start": 4.228,
+       "end": 4.328
+      },
+      {
+       "w": "installs",
+       "start": 4.328,
+       "end": 4.879
+      },
+      {
+       "w": ",",
+       "start": 4.879,
+       "end": 4.928
+      },
+      {
+       "w": "builds",
+       "start": 4.928,
+       "end": 5.554
+      },
+      {
+       "w": ",",
+       "start": 5.554,
+       "end": 5.654
+      },
+      {
+       "w": "then",
+       "start": 5.654,
+       "end": 5.879
+      },
+      {
+       "w": "runs",
+       "start": 5.879,
+       "end": 6.154
+      },
+      {
+       "w": "ver-sell",
+       "start": 6.154,
+       "end": 6.541
+      },
+      {
+       "w": "deploy",
+       "start": 6.541,
+       "end": 6.954
+      },
+      {
+       "w": "with",
+       "start": 6.954,
+       "end": 7.141
+      },
+      {
+       "w": "dash",
+       "start": 7.141,
+       "end": 7.478
+      },
+      {
+       "w": "dash",
+       "start": 7.478,
+       "end": 7.778
+      },
+      {
+       "w": "preview",
+       "start": 7.778,
+       "end": 8.454
+      },
+      {
+       "w": ".",
+       "start": 8.454,
+       "end": 8.628
+      }
+     ]
+    },
+    {
+     "text": "That exits with code two, because the newer tool removed the flag.",
+     "caption": "That exits with code two, because the newer tool removed the flag.",
+     "start": 8.461,
+     "end": 12.175,
+     "words": [
+      {
+       "w": "That",
+       "start": 8.479,
+       "end": 8.679
+      },
+      {
+       "w": "exits",
+       "start": 8.679,
+       "end": 9.091
+      },
+      {
+       "w": "with",
+       "start": 9.091,
+       "end": 9.254
+      },
+      {
+       "w": "code",
+       "start": 9.254,
+       "end": 9.566
+      },
+      {
+       "w": "two",
+       "start": 9.566,
+       "end": 10.004
+      },
+      {
+       "w": ",",
+       "start": 10.004,
+       "end": 10.129
+      },
+      {
+       "w": "because",
+       "start": 10.129,
+       "end": 10.416
+      },
+      {
+       "w": "the",
+       "start": 10.416,
+       "end": 10.504
+      },
+      {
+       "w": "newer",
+       "start": 10.504,
+       "end": 10.779
+      },
+      {
+       "w": "tool",
+       "start": 10.779,
+       "end": 11.079
+      },
+      {
+       "w": "removed",
+       "start": 11.079,
+       "end": 11.466
+      },
+      {
+       "w": "the",
+       "start": 11.466,
+       "end": 11.554
+      },
+      {
+       "w": "flag",
+       "start": 11.554,
+       "end": 12.179
+      },
+      {
+       "w": ".",
+       "start": 12.179,
+       "end": 12.329
+      }
+     ]
+    },
+    {
+     "text": "The agent still reports success.",
+     "caption": "The agent still reports success.",
+     "start": 12.175,
+     "end": 14.074,
+     "words": [
+      {
+       "w": "The",
+       "start": 12.193,
+       "end": 12.33
+      },
+      {
+       "w": "agent",
+       "start": 12.33,
+       "end": 12.668
+      },
+      {
+       "w": "still",
+       "start": 12.668,
+       "end": 12.918
+      },
+      {
+       "w": "reports",
+       "start": 12.918,
+       "end": 13.293
+      },
+      {
+       "w": "success",
+       "start": 13.293,
+       "end": 14.018
+      },
+      {
+       "w": ".",
+       "start": 14.018,
+       "end": 14.168
+      }
+     ]
+    },
+    {
+     "text": "Verdict rules run in order, and the first match wins.",
+     "caption": "Verdict rules run in order, and the first match wins.",
+     "start": 14.074,
+     "end": 17.169,
+     "words": [
+      {
+       "w": "Verdict",
+       "start": 14.112,
+       "end": 14.462
+      },
+      {
+       "w": "rules",
+       "start": 14.462,
+       "end": 14.812
+      },
+      {
+       "w": "run",
+       "start": 14.812,
+       "end": 15.024
+      },
+      {
+       "w": "in",
+       "start": 15.024,
+       "end": 15.112
+      },
+      {
+       "w": "order",
+       "start": 15.112,
+       "end": 15.612
+      },
+      {
+       "w": ",",
+       "start": 15.612,
+       "end": 15.712
+      },
+      {
+       "w": "and",
+       "start": 15.712,
+       "end": 15.824
+      },
+      {
+       "w": "the",
+       "start": 15.824,
+       "end": 15.924
+      },
+      {
+       "w": "first",
+       "start": 15.924,
+       "end": 16.237
+      },
+      {
+       "w": "match",
+       "start": 16.237,
+       "end": 16.512
+      },
+      {
+       "w": "wins",
+       "start": 16.512,
+       "end": 17.137
+      },
+      {
+       "w": ".",
+       "start": 17.137,
+       "end": 17.287
+      }
+     ]
+    },
+    {
+     "text": "Rule four looks at the final tool call.",
+     "caption": "Rule four looks at the final tool call.",
+     "start": 17.169,
+     "end": 19.238,
+     "words": [
+      {
+       "w": "Rule",
+       "start": 17.23,
+       "end": 17.493
+      },
+      {
+       "w": "four",
+       "start": 17.493,
+       "end": 17.73
+      },
+      {
+       "w": "looks",
+       "start": 17.73,
+       "end": 17.943
+      },
+      {
+       "w": "at",
+       "start": 17.943,
+       "end": 18.018
+      },
+      {
+       "w": "the",
+       "start": 18.018,
+       "end": 18.105
+      },
+      {
+       "w": "final",
+       "start": 18.105,
+       "end": 18.48
+      },
+      {
+       "w": "tool",
+       "start": 18.48,
+       "end": 18.73
+      },
+      {
+       "w": "call",
+       "start": 18.73,
+       "end": 19.23
+      },
+      {
+       "w": ".",
+       "start": 19.23,
+       "end": 19.38
+      }
+     ]
+    },
+    {
+     "text": "A non-zero exit is a Skill error, whatever the agent said, unless the error looks environmental.",
+     "caption": "A non-zero exit is a Skill error, whatever the agent said, unless the error looks environmental.",
+     "start": 19.238,
+     "end": 25.079,
+     "words": [
+      {
+       "w": "A",
+       "start": 19.268,
+       "end": 19.343
+      },
+      {
+       "w": "non-zero",
+       "start": 19.343,
+       "end": 19.968
+      },
+      {
+       "w": "exit",
+       "start": 19.968,
+       "end": 20.393
+      },
+      {
+       "w": "is",
+       "start": 20.393,
+       "end": 20.506
+      },
+      {
+       "w": "a",
+       "start": 20.506,
+       "end": 20.606
+      },
+      {
+       "w": "Skill",
+       "start": 20.606,
+       "end": 20.968
+      },
+      {
+       "w": "error",
+       "start": 20.968,
+       "end": 21.518
+      },
+      {
+       "w": ",",
+       "start": 21.518,
+       "end": 21.618
+      },
+      {
+       "w": "whatever",
+       "start": 21.618,
+       "end": 21.981
+      },
+      {
+       "w": "the",
+       "start": 21.981,
+       "end": 22.118
+      },
+      {
+       "w": "agent",
+       "start": 22.118,
+       "end": 22.468
+      },
+      {
+       "w": "said",
+       "start": 22.468,
+       "end": 22.968
+      },
+      {
+       "w": ",",
+       "start": 22.968,
+       "end": 23.068
+      },
+      {
+       "w": "unless",
+       "start": 23.068,
+       "end": 23.381
+      },
+      {
+       "w": "the",
+       "start": 23.381,
+       "end": 23.531
+      },
+      {
+       "w": "error",
+       "start": 23.531,
+       "end": 23.843
+      },
+      {
+       "w": "looks",
+       "start": 23.843,
+       "end": 24.093
+      },
+      {
+       "w": "environmental",
+       "start": 24.093,
+       "end": 25.118
+      },
+      {
+       "w": ".",
+       "start": 25.118,
+       "end": 25.243
+      }
+     ]
+    },
+    {
+     "text": "The verdict records the rule, a reason, and the step where it fired.",
+     "caption": "The verdict records the rule, a reason, and the step where it fired.",
+     "start": 25.079,
+     "end": 28.814,
+     "words": [
+      {
+       "w": "The",
+       "start": 25.11,
+       "end": 25.185
+      },
+      {
+       "w": "verdict",
+       "start": 25.185,
+       "end": 25.56
+      },
+      {
+       "w": "records",
+       "start": 25.56,
+       "end": 26.022
+      },
+      {
+       "w": "the",
+       "start": 26.022,
+       "end": 26.11
+      },
+      {
+       "w": "rule",
+       "start": 26.11,
+       "end": 26.51
+      },
+      {
+       "w": ",",
+       "start": 26.51,
+       "end": 26.585
+      },
+      {
+       "w": "a",
+       "start": 26.585,
+       "end": 26.685
+      },
+      {
+       "w": "reason",
+       "start": 26.685,
+       "end": 27.31
+      },
+      {
+       "w": ",",
+       "start": 27.31,
+       "end": 27.41
+      },
+      {
+       "w": "and",
+       "start": 27.41,
+       "end": 27.522
+      },
+      {
+       "w": "the",
+       "start": 27.522,
+       "end": 27.622
+      },
+      {
+       "w": "step",
+       "start": 27.622,
+       "end": 27.947
+      },
+      {
+       "w": "where",
+       "start": 27.947,
+       "end": 28.072
+      },
+      {
+       "w": "it",
+       "start": 28.072,
+       "end": 28.16
+      },
+      {
+       "w": "fired",
+       "start": 28.16,
+       "end": 28.81
+      },
+      {
+       "w": ".",
+       "start": 28.81,
+       "end": 28.96
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "n": 4,
+   "title": "From failures to causes",
+   "chapter": "04 / Request flow: causes",
+   "start": 84.183,
+   "audio": 26.777,
+   "duration": 27.377,
+   "sentences": [
+    {
+     "text": "Next, causes.",
+     "caption": "Next, causes.",
+     "start": 0.0,
+     "end": 1.156,
+     "words": [
+      {
+       "w": "Next",
+       "start": 0.072,
+       "end": 0.347
+      },
+      {
+       "w": ",",
+       "start": 0.347,
+       "end": 0.397
+      },
+      {
+       "w": "causes",
+       "start": 0.397,
+       "end": 1.122
+      },
+      {
+       "w": ".",
+       "start": 1.122,
+       "end": 1.297
+      }
+     ]
+    },
+    {
+     "text": "Each error line is normalized.",
+     "caption": "Each error line is normalized.",
+     "start": 1.156,
+     "end": 2.985,
+     "words": [
+      {
+       "w": "Each",
+       "start": 1.182,
+       "end": 1.382
+      },
+      {
+       "w": "error",
+       "start": 1.382,
+       "end": 1.657
+      },
+      {
+       "w": "line",
+       "start": 1.657,
+       "end": 1.957
+      },
+      {
+       "w": "is",
+       "start": 1.957,
+       "end": 2.107
+      },
+      {
+       "w": "normalized",
+       "start": 2.107,
+       "end": 2.932
+      },
+      {
+       "w": ".",
+       "start": 2.932,
+       "end": 3.082
+      }
+     ]
+    },
+    {
+     "text": "Paths, IDs and numbers are stripped, so runs that differ only in details share one signature.",
+     "caption": "Paths, IDs and numbers are stripped, so runs that differ only in details share one signature.",
+     "start": 2.985,
+     "end": 8.82,
+     "words": [
+      {
+       "w": "Paths",
+       "start": 3.024,
+       "end": 3.474
+      },
+      {
+       "w": ",",
+       "start": 3.474,
+       "end": 3.549
+      },
+      {
+       "w": "IDs",
+       "start": 3.549,
+       "end": 4.037
+      },
+      {
+       "w": "and",
+       "start": 4.037,
+       "end": 4.149
+      },
+      {
+       "w": "numbers",
+       "start": 4.149,
+       "end": 4.499
+      },
+      {
+       "w": "are",
+       "start": 4.499,
+       "end": 4.599
+      },
+      {
+       "w": "stripped",
+       "start": 4.599,
+       "end": 5.224
+      },
+      {
+       "w": ",",
+       "start": 5.224,
+       "end": 5.362
+      },
+      {
+       "w": "so",
+       "start": 5.362,
+       "end": 5.612
+      },
+      {
+       "w": "runs",
+       "start": 5.612,
+       "end": 5.987
+      },
+      {
+       "w": "that",
+       "start": 5.987,
+       "end": 6.099
+      },
+      {
+       "w": "differ",
+       "start": 6.099,
+       "end": 6.412
+      },
+      {
+       "w": "only",
+       "start": 6.412,
+       "end": 6.712
+      },
+      {
+       "w": "in",
+       "start": 6.712,
+       "end": 6.787
+      },
+      {
+       "w": "details",
+       "start": 6.787,
+       "end": 7.537
+      },
+      {
+       "w": "share",
+       "start": 7.537,
+       "end": 7.837
+      },
+      {
+       "w": "one",
+       "start": 7.837,
+       "end": 8.074
+      },
+      {
+       "w": "signature",
+       "start": 8.074,
+       "end": 8.849
+      },
+      {
+       "w": ".",
+       "start": 8.849,
+       "end": 8.974
+      }
+     ]
+    },
+    {
+     "text": "Signatures become T-F I-D-F vectors, and agglomerative clustering groups them, one skill at a time, using only failures from the mining split.",
+     "caption": "Signatures become TF-IDF vectors, and agglomerative clustering groups them, one skill at a time, using only failures from the mining split.",
+     "start": 8.82,
+     "end": 17.586,
+     "words": [
+      {
+       "w": "Signatures",
+       "start": 8.897,
+       "end": 9.447
+      },
+      {
+       "w": "become",
+       "start": 9.447,
+       "end": 9.847
+      },
+      {
+       "w": "T-F",
+       "start": 9.847,
+       "end": 10.31
+      },
+      {
+       "w": "I-D-F",
+       "start": 10.31,
+       "end": 10.822
+      },
+      {
+       "w": "vectors",
+       "start": 10.822,
+       "end": 11.572
+      },
+      {
+       "w": ",",
+       "start": 11.572,
+       "end": 11.647
+      },
+      {
+       "w": "and",
+       "start": 11.647,
+       "end": 11.76
+      },
+      {
+       "w": "agglomerative",
+       "start": 11.76,
+       "end": 12.497
+      },
+      {
+       "w": "clustering",
+       "start": 12.497,
+       "end": 12.997
+      },
+      {
+       "w": "groups",
+       "start": 12.997,
+       "end": 13.322
+      },
+      {
+       "w": "them",
+       "start": 13.322,
+       "end": 13.797
+      },
+      {
+       "w": ",",
+       "start": 13.797,
+       "end": 13.91
+      },
+      {
+       "w": "one",
+       "start": 13.91,
+       "end": 14.16
+      },
+      {
+       "w": "skill",
+       "start": 14.16,
+       "end": 14.497
+      },
+      {
+       "w": "at",
+       "start": 14.497,
+       "end": 14.585
+      },
+      {
+       "w": "a",
+       "start": 14.585,
+       "end": 14.647
+      },
+      {
+       "w": "time",
+       "start": 14.647,
+       "end": 15.222
+      },
+      {
+       "w": ",",
+       "start": 15.222,
+       "end": 15.322
+      },
+      {
+       "w": "using",
+       "start": 15.322,
+       "end": 15.647
+      },
+      {
+       "w": "only",
+       "start": 15.647,
+       "end": 15.96
+      },
+      {
+       "w": "failures",
+       "start": 15.96,
+       "end": 16.497
+      },
+      {
+       "w": "from",
+       "start": 16.497,
+       "end": 16.635
+      },
+      {
+       "w": "the",
+       "start": 16.635,
+       "end": 16.722
+      },
+      {
+       "w": "mining",
+       "start": 16.722,
+       "end": 17.072
+      },
+      {
+       "w": "split",
+       "start": 17.072,
+       "end": 17.672
+      },
+      {
+       "w": ".",
+       "start": 17.672,
+       "end": 17.822
+      }
+     ]
+    },
+    {
+     "text": "For deploy-preview, that gives three causes: a missing Ver-sell token in twenty-two runs, the removed flag in eighteen, and deploying from main in seven.",
+     "caption": "For deploy-preview, that gives three causes: a missing Vercel token in twenty-two runs, the removed flag in eighteen, and deploying from main in seven.",
+     "start": 17.586,
+     "end": 26.777,
+     "words": [
+      {
+       "w": "For",
+       "start": 17.604,
+       "end": 17.717
+      },
+      {
+       "w": "deploy-preview",
+       "start": 17.717,
+       "end": 18.554
+      },
+      {
+       "w": ",",
+       "start": 18.554,
+       "end": 18.654
+      },
+      {
+       "w": "that",
+       "start": 18.654,
+       "end": 18.854
+      },
+      {
+       "w": "gives",
+       "start": 18.854,
+       "end": 19.117
+      },
+      {
+       "w": "three",
+       "start": 19.117,
+       "end": 19.354
+      },
+      {
+       "w": "causes",
+       "start": 19.354,
+       "end": 20.254
+      },
+      {
+       "w": ":",
+       "start": 20.254,
+       "end": 20.367
+      },
+      {
+       "w": "a",
+       "start": 20.367,
+       "end": 20.479
+      },
+      {
+       "w": "missing",
+       "start": 20.479,
+       "end": 20.804
+      },
+      {
+       "w": "Ver-sell",
+       "start": 20.804,
+       "end": 21.304
+      },
+      {
+       "w": "token",
+       "start": 21.304,
+       "end": 21.617
+      },
+      {
+       "w": "in",
+       "start": 21.617,
+       "end": 21.704
+      },
+      {
+       "w": "twenty-two",
+       "start": 21.704,
+       "end": 22.204
+      },
+      {
+       "w": "runs",
+       "start": 22.204,
+       "end": 22.804
+      },
+      {
+       "w": ",",
+       "start": 22.804,
+       "end": 22.904
+      },
+      {
+       "w": "the",
+       "start": 22.904,
+       "end": 23.004
+      },
+      {
+       "w": "removed",
+       "start": 23.004,
+       "end": 23.492
+      },
+      {
+       "w": "flag",
+       "start": 23.492,
+       "end": 23.904
+      },
+      {
+       "w": "in",
+       "start": 23.904,
+       "end": 24.004
+      },
+      {
+       "w": "eighteen",
+       "start": 24.004,
+       "end": 24.754
+      },
+      {
+       "w": ",",
+       "start": 24.754,
+       "end": 24.854
+      },
+      {
+       "w": "and",
+       "start": 24.854,
+       "end": 24.967
+      },
+      {
+       "w": "deploying",
+       "start": 24.967,
+       "end": 25.454
+      },
+      {
+       "w": "from",
+       "start": 25.454,
+       "end": 25.654
+      },
+      {
+       "w": "main",
+       "start": 25.654,
+       "end": 25.979
+      },
+      {
+       "w": "in",
+       "start": 25.979,
+       "end": 26.142
+      },
+      {
+       "w": "seven",
+       "start": 26.142,
+       "end": 26.804
+      },
+      {
+       "w": ".",
+       "start": 26.804,
+       "end": 26.954
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "n": 5,
+   "title": "Draft, review, replay",
+   "chapter": "05 / Request flow: fix",
+   "start": 111.56,
+   "audio": 32.993,
+   "duration": 33.593,
+   "sentences": [
+    {
+     "text": "Now the fix.",
+     "caption": "Now the fix.",
+     "start": 0.0,
+     "end": 1.049,
+     "words": [
+      {
+       "w": "Now",
+       "start": 0.064,
+       "end": 0.251
+      },
+      {
+       "w": "the",
+       "start": 0.251,
+       "end": 0.376
+      },
+      {
+       "w": "fix",
+       "start": 0.376,
+       "end": 1.014
+      },
+      {
+       "w": ".",
+       "start": 1.014,
+       "end": 1.164
+      }
+     ]
+    },
+    {
+     "text": "The default drafter is a set of templates matched against the error text.",
+     "caption": "The default drafter is a set of templates matched against the error text.",
+     "start": 1.049,
+     "end": 5.103,
+     "words": [
+      {
+       "w": "The",
+       "start": 1.076,
+       "end": 1.151
+      },
+      {
+       "w": "default",
+       "start": 1.151,
+       "end": 1.576
+      },
+      {
+       "w": "drafter",
+       "start": 1.576,
+       "end": 2.351
+      },
+      {
+       "w": "is",
+       "start": 2.351,
+       "end": 2.488
+      },
+      {
+       "w": "a",
+       "start": 2.488,
+       "end": 2.551
+      },
+      {
+       "w": "set",
+       "start": 2.551,
+       "end": 2.738
+      },
+      {
+       "w": "of",
+       "start": 2.738,
+       "end": 2.826
+      },
+      {
+       "w": "templates",
+       "start": 2.826,
+       "end": 3.313
+      },
+      {
+       "w": "matched",
+       "start": 3.313,
+       "end": 3.726
+      },
+      {
+       "w": "against",
+       "start": 3.726,
+       "end": 4.013
+      },
+      {
+       "w": "the",
+       "start": 4.013,
+       "end": 4.126
+      },
+      {
+       "w": "error",
+       "start": 4.126,
+       "end": 4.426
+      },
+      {
+       "w": "text",
+       "start": 4.426,
+       "end": 5.076
+      },
+      {
+       "w": ".",
+       "start": 5.076,
+       "end": 5.226
+      }
+     ]
+    },
+    {
+     "text": "This one recognizes a renamed flag, so it rewrites step four of the skill file.",
+     "caption": "This one recognizes a renamed flag, so it rewrites step four of the skill file.",
+     "start": 5.103,
+     "end": 9.681,
+     "words": [
+      {
+       "w": "This",
+       "start": 5.121,
+       "end": 5.308
+      },
+      {
+       "w": "one",
+       "start": 5.308,
+       "end": 5.496
+      },
+      {
+       "w": "recognizes",
+       "start": 5.496,
+       "end": 6.221
+      },
+      {
+       "w": "a",
+       "start": 6.221,
+       "end": 6.321
+      },
+      {
+       "w": "renamed",
+       "start": 6.321,
+       "end": 6.783
+      },
+      {
+       "w": "flag",
+       "start": 6.783,
+       "end": 7.421
+      },
+      {
+       "w": ",",
+       "start": 7.421,
+       "end": 7.546
+      },
+      {
+       "w": "so",
+       "start": 7.546,
+       "end": 7.683
+      },
+      {
+       "w": "it",
+       "start": 7.683,
+       "end": 7.771
+      },
+      {
+       "w": "rewrites",
+       "start": 7.771,
+       "end": 8.158
+      },
+      {
+       "w": "step",
+       "start": 8.158,
+       "end": 8.433
+      },
+      {
+       "w": "four",
+       "start": 8.433,
+       "end": 8.683
+      },
+      {
+       "w": "of",
+       "start": 8.683,
+       "end": 8.758
+      },
+      {
+       "w": "the",
+       "start": 8.758,
+       "end": 8.846
+      },
+      {
+       "w": "skill",
+       "start": 8.846,
+       "end": 9.121
+      },
+      {
+       "w": "file",
+       "start": 9.121,
+       "end": 9.696
+      },
+      {
+       "w": ".",
+       "start": 9.696,
+       "end": 9.821
+      }
+     ]
+    },
+    {
+     "text": "You get a one-line diff, and a rationale citing five trace IDs you can click.",
+     "caption": "You get a one-line diff, and a rationale citing five trace IDs you can click.",
+     "start": 9.681,
+     "end": 14.221,
+     "words": [
+      {
+       "w": "You",
+       "start": 9.694,
+       "end": 9.794
+      },
+      {
+       "w": "get",
+       "start": 9.794,
+       "end": 9.931
+      },
+      {
+       "w": "a",
+       "start": 9.931,
+       "end": 10.031
+      },
+      {
+       "w": "one-line",
+       "start": 10.031,
+       "end": 10.494
+      },
+      {
+       "w": "diff",
+       "start": 10.494,
+       "end": 11.019
+      },
+      {
+       "w": ",",
+       "start": 11.019,
+       "end": 11.119
+      },
+      {
+       "w": "and",
+       "start": 11.119,
+       "end": 11.231
+      },
+      {
+       "w": "a",
+       "start": 11.231,
+       "end": 11.294
+      },
+      {
+       "w": "rationale",
+       "start": 11.294,
+       "end": 11.869
+      },
+      {
+       "w": "citing",
+       "start": 11.869,
+       "end": 12.206
+      },
+      {
+       "w": "five",
+       "start": 12.206,
+       "end": 12.544
+      },
+      {
+       "w": "trace",
+       "start": 12.544,
+       "end": 12.931
+      },
+      {
+       "w": "IDs",
+       "start": 12.931,
+       "end": 13.394
+      },
+      {
+       "w": "you",
+       "start": 13.394,
+       "end": 13.494
+      },
+      {
+       "w": "can",
+       "start": 13.494,
+       "end": 13.669
+      },
+      {
+       "w": "click",
+       "start": 13.669,
+       "end": 14.219
+      },
+      {
+       "w": ".",
+       "start": 14.219,
+       "end": 14.369
+      }
+     ]
+    },
+    {
+     "text": "A reviewer approves, edits, or rejects.",
+     "caption": "A reviewer approves, edits, or rejects.",
+     "start": 14.221,
+     "end": 16.733,
+     "words": [
+      {
+       "w": "A",
+       "start": 14.251,
+       "end": 14.326
+      },
+      {
+       "w": "reviewer",
+       "start": 14.326,
+       "end": 14.776
+      },
+      {
+       "w": "approves",
+       "start": 14.776,
+       "end": 15.301
+      },
+      {
+       "w": ",",
+       "start": 15.301,
+       "end": 15.401
+      },
+      {
+       "w": "edits",
+       "start": 15.401,
+       "end": 15.751
+      },
+      {
+       "w": ",",
+       "start": 15.751,
+       "end": 15.801
+      },
+      {
+       "w": "or",
+       "start": 15.801,
+       "end": 15.926
+      },
+      {
+       "w": "rejects",
+       "start": 15.926,
+       "end": 16.701
+      },
+      {
+       "w": ".",
+       "start": 16.701,
+       "end": 16.826
+      }
+     ]
+    },
+    {
+     "text": "Each decision is appended to reviews dot Jason L with a timestamp, and the latest one wins.",
+     "caption": "Each decision is appended to reviews.jsonl with a timestamp, and the latest one wins.",
+     "start": 16.733,
+     "end": 22.304,
+     "words": [
+      {
+       "w": "Each",
+       "start": 16.755,
+       "end": 17.03
+      },
+      {
+       "w": "decision",
+       "start": 17.03,
+       "end": 17.53
+      },
+      {
+       "w": "is",
+       "start": 17.53,
+       "end": 17.655
+      },
+      {
+       "w": "appended",
+       "start": 17.655,
+       "end": 18.08
+      },
+      {
+       "w": "to",
+       "start": 18.08,
+       "end": 18.205
+      },
+      {
+       "w": "reviews",
+       "start": 18.205,
+       "end": 18.667
+      },
+      {
+       "w": "dot",
+       "start": 18.667,
+       "end": 18.967
+      },
+      {
+       "w": "Jason",
+       "start": 18.967,
+       "end": 19.405
+      },
+      {
+       "w": "L",
+       "start": 19.405,
+       "end": 19.68
+      },
+      {
+       "w": "with",
+       "start": 19.68,
+       "end": 19.817
+      },
+      {
+       "w": "a",
+       "start": 19.817,
+       "end": 19.88
+      },
+      {
+       "w": "timestamp",
+       "start": 19.88,
+       "end": 20.805
+      },
+      {
+       "w": ",",
+       "start": 20.805,
+       "end": 20.905
+      },
+      {
+       "w": "and",
+       "start": 20.905,
+       "end": 21.017
+      },
+      {
+       "w": "the",
+       "start": 21.017,
+       "end": 21.105
+      },
+      {
+       "w": "latest",
+       "start": 21.105,
+       "end": 21.455
+      },
+      {
+       "w": "one",
+       "start": 21.455,
+       "end": 21.655
+      },
+      {
+       "w": "wins",
+       "start": 21.655,
+       "end": 22.28
+      },
+      {
+       "w": ".",
+       "start": 22.28,
+       "end": 22.43
+      }
+     ]
+    },
+    {
+     "text": "Replay then checks the held-out traces.",
+     "caption": "Replay then checks the held-out traces.",
+     "start": 22.304,
+     "end": 24.519,
+     "words": [
+      {
+       "w": "Replay",
+       "start": 22.345,
+       "end": 22.77
+      },
+      {
+       "w": "then",
+       "start": 22.77,
+       "end": 23.033
+      },
+      {
+       "w": "checks",
+       "start": 23.033,
+       "end": 23.333
+      },
+      {
+       "w": "the",
+       "start": 23.333,
+       "end": 23.408
+      },
+      {
+       "w": "held-out",
+       "start": 23.408,
+       "end": 23.745
+      },
+      {
+       "w": "traces",
+       "start": 23.745,
+       "end": 24.495
+      },
+      {
+       "w": ".",
+       "start": 24.495,
+       "end": 24.645
+      }
+     ]
+    },
+    {
+     "text": "Approve only this edit, and deploy-preview goes from forty to forty-four successes out of sixty.",
+     "caption": "Approve only this edit, and deploy-preview goes from forty to forty-four successes out of sixty.",
+     "start": 24.519,
+     "end": 30.444,
+     "words": [
+      {
+       "w": "Approve",
+       "start": 24.565,
+       "end": 25.002
+      },
+      {
+       "w": "only",
+       "start": 25.002,
+       "end": 25.315
+      },
+      {
+       "w": "this",
+       "start": 25.315,
+       "end": 25.515
+      },
+      {
+       "w": "edit",
+       "start": 25.515,
+       "end": 26.09
+      },
+      {
+       "w": ",",
+       "start": 26.09,
+       "end": 26.19
+      },
+      {
+       "w": "and",
+       "start": 26.19,
+       "end": 26.302
+      },
+      {
+       "w": "deploy-preview",
+       "start": 26.302,
+       "end": 26.99
+      },
+      {
+       "w": "goes",
+       "start": 26.99,
+       "end": 27.34
+      },
+      {
+       "w": "from",
+       "start": 27.34,
+       "end": 27.552
+      },
+      {
+       "w": "forty",
+       "start": 27.552,
+       "end": 28.027
+      },
+      {
+       "w": "to",
+       "start": 28.027,
+       "end": 28.177
+      },
+      {
+       "w": "forty-four",
+       "start": 28.177,
+       "end": 28.715
+      },
+      {
+       "w": "successes",
+       "start": 28.715,
+       "end": 29.502
+      },
+      {
+       "w": "out",
+       "start": 29.502,
+       "end": 29.677
+      },
+      {
+       "w": "of",
+       "start": 29.677,
+       "end": 29.765
+      },
+      {
+       "w": "sixty",
+       "start": 29.765,
+       "end": 30.465
+      },
+      {
+       "w": ".",
+       "start": 30.465,
+       "end": 30.615
+      }
+     ]
+    },
+    {
+     "text": "Approve all three, and it reaches fifty-seven.",
+     "caption": "Approve all three, and it reaches fifty-seven.",
+     "start": 30.444,
+     "end": 32.993,
+     "words": [
+      {
+       "w": "Approve",
+       "start": 30.489,
+       "end": 30.776
+      },
+      {
+       "w": "all",
+       "start": 30.776,
+       "end": 30.976
+      },
+      {
+       "w": "three",
+       "start": 30.976,
+       "end": 31.414
+      },
+      {
+       "w": ",",
+       "start": 31.414,
+       "end": 31.514
+      },
+      {
+       "w": "and",
+       "start": 31.514,
+       "end": 31.626
+      },
+      {
+       "w": "it",
+       "start": 31.626,
+       "end": 31.714
+      },
+      {
+       "w": "reaches",
+       "start": 31.714,
+       "end": 32.089
+      },
+      {
+       "w": "fifty-seven",
+       "start": 32.089,
+       "end": 32.989
+      },
+      {
+       "w": ".",
+       "start": 32.989,
+       "end": 33.139
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "n": 6,
+   "title": "Run it",
+   "chapter": "06 / Run the demo",
+   "start": 145.153,
+   "audio": 16.087,
+   "duration": 16.687,
+   "sentences": [
+    {
+     "text": "To run it, type make demo.",
+     "caption": "To run it, type make demo.",
+     "start": 0.0,
+     "end": 1.693,
+     "words": [
+      {
+       "w": "To",
+       "start": 0.05,
+       "end": 0.175
+      },
+      {
+       "w": "run",
+       "start": 0.175,
+       "end": 0.4
+      },
+      {
+       "w": "it",
+       "start": 0.4,
+       "end": 0.525
+      },
+      {
+       "w": ",",
+       "start": 0.525,
+       "end": 0.6
+      },
+      {
+       "w": "type",
+       "start": 0.6,
+       "end": 0.837
+      },
+      {
+       "w": "make",
+       "start": 0.837,
+       "end": 1.05
+      },
+      {
+       "w": "demo",
+       "start": 1.05,
+       "end": 1.65
+      },
+      {
+       "w": ".",
+       "start": 1.65,
+       "end": 1.825
+      }
+     ]
+    },
+    {
+     "text": "It installs the pinned requirements and starts the app on port eight thousand, with no API key.",
+     "caption": "It installs the pinned requirements and starts the app on port eight thousand, with no API key.",
+     "start": 1.693,
+     "end": 7.134,
+     "words": [
+      {
+       "w": "It",
+       "start": 1.698,
+       "end": 1.811
+      },
+      {
+       "w": "installs",
+       "start": 1.811,
+       "end": 2.336
+      },
+      {
+       "w": "the",
+       "start": 2.336,
+       "end": 2.423
+      },
+      {
+       "w": "pinned",
+       "start": 2.423,
+       "end": 2.686
+      },
+      {
+       "w": "requirements",
+       "start": 2.686,
+       "end": 3.511
+      },
+      {
+       "w": "and",
+       "start": 3.511,
+       "end": 3.648
+      },
+      {
+       "w": "starts",
+       "start": 3.648,
+       "end": 3.936
+      },
+      {
+       "w": "the",
+       "start": 3.936,
+       "end": 4.048
+      },
+      {
+       "w": "app",
+       "start": 4.048,
+       "end": 4.236
+      },
+      {
+       "w": "on",
+       "start": 4.236,
+       "end": 4.348
+      },
+      {
+       "w": "port",
+       "start": 4.348,
+       "end": 4.573
+      },
+      {
+       "w": "eight",
+       "start": 4.573,
+       "end": 4.773
+      },
+      {
+       "w": "thousand",
+       "start": 4.773,
+       "end": 5.498
+      },
+      {
+       "w": ",",
+       "start": 5.498,
+       "end": 5.598
+      },
+      {
+       "w": "with",
+       "start": 5.598,
+       "end": 5.786
+      },
+      {
+       "w": "no",
+       "start": 5.786,
+       "end": 6.086
+      },
+      {
+       "w": "API",
+       "start": 6.086,
+       "end": 6.636
+      },
+      {
+       "w": "key",
+       "start": 6.636,
+       "end": 7.173
+      },
+      {
+       "w": ".",
+       "start": 7.173,
+       "end": 7.298
+      }
+     ]
+    },
+    {
+     "text": "Five pages follow the loop: skills, skill detail, proposed edit, trace viewer, and results.",
+     "caption": "Five pages follow the loop: skills, skill detail, proposed edit, trace viewer, and results.",
+     "start": 7.134,
+     "end": 12.551,
+     "words": [
+      {
+       "w": "Five",
+       "start": 7.152,
+       "end": 7.452
+      },
+      {
+       "w": "pages",
+       "start": 7.452,
+       "end": 7.852
+      },
+      {
+       "w": "follow",
+       "start": 7.852,
+       "end": 8.139
+      },
+      {
+       "w": "the",
+       "start": 8.139,
+       "end": 8.227
+      },
+      {
+       "w": "loop",
+       "start": 8.227,
+       "end": 8.702
+      },
+      {
+       "w": ":",
+       "start": 8.702,
+       "end": 8.839
+      },
+      {
+       "w": "skills",
+       "start": 8.839,
+       "end": 9.352
+      },
+      {
+       "w": ",",
+       "start": 9.352,
+       "end": 9.427
+      },
+      {
+       "w": "skill",
+       "start": 9.427,
+       "end": 9.677
+      },
+      {
+       "w": "detail",
+       "start": 9.677,
+       "end": 10.127
+      },
+      {
+       "w": ",",
+       "start": 10.127,
+       "end": 10.177
+      },
+      {
+       "w": "proposed",
+       "start": 10.177,
+       "end": 10.627
+      },
+      {
+       "w": "edit",
+       "start": 10.627,
+       "end": 10.977
+      },
+      {
+       "w": ",",
+       "start": 10.977,
+       "end": 11.052
+      },
+      {
+       "w": "trace",
+       "start": 11.052,
+       "end": 11.377
+      },
+      {
+       "w": "viewer",
+       "start": 11.377,
+       "end": 11.677
+      },
+      {
+       "w": ",",
+       "start": 11.677,
+       "end": 11.714
+      },
+      {
+       "w": "and",
+       "start": 11.714,
+       "end": 11.814
+      },
+      {
+       "w": "results",
+       "start": 11.814,
+       "end": 12.502
+      },
+      {
+       "w": ".",
+       "start": 12.502,
+       "end": 12.627
+      }
+     ]
+    },
+    {
+     "text": "For the L-L-M path, set a model in a dot E-N-V file.",
+     "caption": "For the LLM path, set a model in a .env file.",
+     "start": 12.551,
+     "end": 16.087,
+     "words": [
+      {
+       "w": "For",
+       "start": 12.578,
+       "end": 12.691
+      },
+      {
+       "w": "the",
+       "start": 12.691,
+       "end": 12.841
+      },
+      {
+       "w": "L-L-M",
+       "start": 12.841,
+       "end": 13.403
+      },
+      {
+       "w": "path",
+       "start": 13.403,
+       "end": 13.878
+      },
+      {
+       "w": ",",
+       "start": 13.878,
+       "end": 13.978
+      },
+      {
+       "w": "set",
+       "start": 13.978,
+       "end": 14.116
+      },
+      {
+       "w": "a",
+       "start": 14.116,
+       "end": 14.178
+      },
+      {
+       "w": "model",
+       "start": 14.178,
+       "end": 14.553
+      },
+      {
+       "w": "in",
+       "start": 14.553,
+       "end": 14.641
+      },
+      {
+       "w": "a",
+       "start": 14.641,
+       "end": 14.741
+      },
+      {
+       "w": "dot",
+       "start": 14.741,
+       "end": 15.028
+      },
+      {
+       "w": "E-N-V",
+       "start": 15.028,
+       "end": 15.516
+      },
+      {
+       "w": "file",
+       "start": 15.516,
+       "end": 16.103
+      },
+      {
+       "w": ".",
+       "start": 16.103,
+       "end": 16.228
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "n": 7,
+   "title": "Gotchas and limitations",
+   "chapter": "07 / Gotchas",
+   "start": 161.84,
+   "audio": 33.652,
+   "duration": 34.252,
+   "sentences": [
+    {
+     "text": "Some things to know before you trust the numbers.",
+     "caption": "Some things to know before you trust the numbers.",
+     "start": 0.0,
+     "end": 2.466,
+     "words": [
+      {
+       "w": "Some",
+       "start": 0.067,
+       "end": 0.292
+      },
+      {
+       "w": "things",
+       "start": 0.292,
+       "end": 0.592
+      },
+      {
+       "w": "to",
+       "start": 0.592,
+       "end": 0.717
+      },
+      {
+       "w": "know",
+       "start": 0.717,
+       "end": 1.067
+      },
+      {
+       "w": "before",
+       "start": 1.067,
+       "end": 1.329
+      },
+      {
+       "w": "you",
+       "start": 1.329,
+       "end": 1.417
+      },
+      {
+       "w": "trust",
+       "start": 1.417,
+       "end": 1.704
+      },
+      {
+       "w": "the",
+       "start": 1.704,
+       "end": 1.779
+      },
+      {
+       "w": "numbers",
+       "start": 1.779,
+       "end": 2.442
+      },
+      {
+       "w": ".",
+       "start": 2.442,
+       "end": 2.592
+      }
+     ]
+    },
+    {
+     "text": "Agent feedback never decides on its own.",
+     "caption": "Agent feedback never decides on its own.",
+     "start": 2.466,
+     "end": 4.84,
+     "words": [
+      {
+       "w": "Agent",
+       "start": 2.492,
+       "end": 2.767
+      },
+      {
+       "w": "feedback",
+       "start": 2.767,
+       "end": 3.342
+      },
+      {
+       "w": "never",
+       "start": 3.342,
+       "end": 3.617
+      },
+      {
+       "w": "decides",
+       "start": 3.617,
+       "end": 4.08
+      },
+      {
+       "w": "on",
+       "start": 4.08,
+       "end": 4.18
+      },
+      {
+       "w": "its",
+       "start": 4.18,
+       "end": 4.318
+      },
+      {
+       "w": "own",
+       "start": 4.318,
+       "end": 4.842
+      },
+      {
+       "w": ".",
+       "start": 4.842,
+       "end": 4.992
+      }
+     ]
+    },
+    {
+     "text": "A clean run where the agent reports failure stays Unknown, under Needs triage.",
+     "caption": "A clean run where the agent reports failure stays Unknown, under Needs triage.",
+     "start": 4.84,
+     "end": 9.498,
+     "words": [
+      {
+       "w": "A",
+       "start": 4.876,
+       "end": 4.964
+      },
+      {
+       "w": "clean",
+       "start": 4.964,
+       "end": 5.301
+      },
+      {
+       "w": "run",
+       "start": 5.301,
+       "end": 5.589
+      },
+      {
+       "w": "where",
+       "start": 5.589,
+       "end": 5.714
+      },
+      {
+       "w": "the",
+       "start": 5.714,
+       "end": 5.839
+      },
+      {
+       "w": "agent",
+       "start": 5.839,
+       "end": 6.164
+      },
+      {
+       "w": "reports",
+       "start": 6.164,
+       "end": 6.601
+      },
+      {
+       "w": "failure",
+       "start": 6.601,
+       "end": 7.001
+      },
+      {
+       "w": "stays",
+       "start": 7.001,
+       "end": 7.351
+      },
+      {
+       "w": "Unknown",
+       "start": 7.351,
+       "end": 8.051
+      },
+      {
+       "w": ",",
+       "start": 8.051,
+       "end": 8.151
+      },
+      {
+       "w": "under",
+       "start": 8.151,
+       "end": 8.376
+      },
+      {
+       "w": "Needs",
+       "start": 8.376,
+       "end": 8.701
+      },
+      {
+       "w": "triage",
+       "start": 8.701,
+       "end": 9.451
+      },
+      {
+       "w": ".",
+       "start": 9.451,
+       "end": 9.601
+      }
+     ]
+    },
+    {
+     "text": "Replay is simulated.",
+     "caption": "Replay is simulated.",
+     "start": 9.498,
+     "end": 11.006,
+     "words": [
+      {
+       "w": "Replay",
+       "start": 9.545,
+       "end": 9.995
+      },
+      {
+       "w": "is",
+       "start": 9.995,
+       "end": 10.132
+      },
+      {
+       "w": "simulated",
+       "start": 10.132,
+       "end": 10.995
+      },
+      {
+       "w": ".",
+       "start": 10.995,
+       "end": 11.145
+      }
+     ]
+    },
+    {
+     "text": "A held-out failure counts as fixed if an approved diff adds that cause's fix marker, which overstates real gains.",
+     "caption": "A held-out failure counts as fixed if an approved diff adds that cause's fix marker, which overstates real gains.",
+     "start": 11.006,
+     "end": 17.572,
+     "words": [
+      {
+       "w": "A",
+       "start": 11.036,
+       "end": 11.111
+      },
+      {
+       "w": "held-out",
+       "start": 11.111,
+       "end": 11.548
+      },
+      {
+       "w": "failure",
+       "start": 11.548,
+       "end": 11.986
+      },
+      {
+       "w": "counts",
+       "start": 11.986,
+       "end": 12.348
+      },
+      {
+       "w": "as",
+       "start": 12.348,
+       "end": 12.573
+      },
+      {
+       "w": "fixed",
+       "start": 12.573,
+       "end": 12.973
+      },
+      {
+       "w": "if",
+       "start": 12.973,
+       "end": 13.098
+      },
+      {
+       "w": "an",
+       "start": 13.098,
+       "end": 13.186
+      },
+      {
+       "w": "approved",
+       "start": 13.186,
+       "end": 13.673
+      },
+      {
+       "w": "diff",
+       "start": 13.673,
+       "end": 13.948
+      },
+      {
+       "w": "adds",
+       "start": 13.948,
+       "end": 14.273
+      },
+      {
+       "w": "that",
+       "start": 14.273,
+       "end": 14.411
+      },
+      {
+       "w": "cause's",
+       "start": 14.411,
+       "end": 14.861
+      },
+      {
+       "w": "fix",
+       "start": 14.861,
+       "end": 15.111
+      },
+      {
+       "w": "marker",
+       "start": 15.111,
+       "end": 15.711
+      },
+      {
+       "w": ",",
+       "start": 15.711,
+       "end": 15.811
+      },
+      {
+       "w": "which",
+       "start": 15.811,
+       "end": 16.011
+      },
+      {
+       "w": "overstates",
+       "start": 16.011,
+       "end": 16.611
+      },
+      {
+       "w": "real",
+       "start": 16.611,
+       "end": 16.861
+      },
+      {
+       "w": "gains",
+       "start": 16.861,
+       "end": 17.561
+      },
+      {
+       "w": ".",
+       "start": 17.561,
+       "end": 17.711
+      }
+     ]
+    },
+    {
+     "text": "The data is synthetic and easy, so a hundred percent cluster purity proves the plumbing, not real-world accuracy.",
+     "caption": "The data is synthetic and easy, so a hundred percent cluster purity proves the plumbing, not real-world accuracy.",
+     "start": 17.572,
+     "end": 24.384,
+     "words": [
+      {
+       "w": "The",
+       "start": 17.599,
+       "end": 17.699
+      },
+      {
+       "w": "data",
+       "start": 17.699,
+       "end": 18.086
+      },
+      {
+       "w": "is",
+       "start": 18.086,
+       "end": 18.224
+      },
+      {
+       "w": "synthetic",
+       "start": 18.224,
+       "end": 18.849
+      },
+      {
+       "w": "and",
+       "start": 18.849,
+       "end": 18.986
+      },
+      {
+       "w": "easy",
+       "start": 18.986,
+       "end": 19.624
+      },
+      {
+       "w": ",",
+       "start": 19.624,
+       "end": 19.749
+      },
+      {
+       "w": "so",
+       "start": 19.749,
+       "end": 19.886
+      },
+      {
+       "w": "a",
+       "start": 19.886,
+       "end": 19.949
+      },
+      {
+       "w": "hundred",
+       "start": 19.949,
+       "end": 20.299
+      },
+      {
+       "w": "percent",
+       "start": 20.299,
+       "end": 20.649
+      },
+      {
+       "w": "cluster",
+       "start": 20.649,
+       "end": 21.024
+      },
+      {
+       "w": "purity",
+       "start": 21.024,
+       "end": 21.486
+      },
+      {
+       "w": "proves",
+       "start": 21.486,
+       "end": 21.874
+      },
+      {
+       "w": "the",
+       "start": 21.874,
+       "end": 21.974
+      },
+      {
+       "w": "plumbing",
+       "start": 21.974,
+       "end": 22.599
+      },
+      {
+       "w": ",",
+       "start": 22.599,
+       "end": 22.699
+      },
+      {
+       "w": "not",
+       "start": 22.699,
+       "end": 22.961
+      },
+      {
+       "w": "real-world",
+       "start": 22.961,
+       "end": 23.586
+      },
+      {
+       "w": "accuracy",
+       "start": 23.586,
+       "end": 24.424
+      },
+      {
+       "w": ".",
+       "start": 24.424,
+       "end": 24.549
+      }
+     ]
+    },
+    {
+     "text": "Approved diffs are never written back to the skill file.",
+     "caption": "Approved diffs are never written back to the skill file.",
+     "start": 24.384,
+     "end": 27.366,
+     "words": [
+      {
+       "w": "Approved",
+       "start": 24.428,
+       "end": 24.878
+      },
+      {
+       "w": "diffs",
+       "start": 24.878,
+       "end": 25.366
+      },
+      {
+       "w": "are",
+       "start": 25.366,
+       "end": 25.516
+      },
+      {
+       "w": "never",
+       "start": 25.516,
+       "end": 25.828
+      },
+      {
+       "w": "written",
+       "start": 25.828,
+       "end": 26.078
+      },
+      {
+       "w": "back",
+       "start": 26.078,
+       "end": 26.353
+      },
+      {
+       "w": "to",
+       "start": 26.353,
+       "end": 26.441
+      },
+      {
+       "w": "the",
+       "start": 26.441,
+       "end": 26.528
+      },
+      {
+       "w": "skill",
+       "start": 26.528,
+       "end": 26.803
+      },
+      {
+       "w": "file",
+       "start": 26.803,
+       "end": 27.378
+      },
+      {
+       "w": ".",
+       "start": 27.378,
+       "end": 27.528
+      }
+     ]
+    },
+    {
+     "text": "And repeated workflows, like P-G dump, P-G dump, diff, are flagged as new skill candidates, not fixed.",
+     "caption": "And repeated workflows, like pg_dump, pg_dump, diff, are flagged as new skill candidates, not fixed.",
+     "start": 27.366,
+     "end": 33.652,
+     "words": [
+      {
+       "w": "And",
+       "start": 27.373,
+       "end": 27.486
+      },
+      {
+       "w": "repeated",
+       "start": 27.486,
+       "end": 27.923
+      },
+      {
+       "w": "workflows",
+       "start": 27.923,
+       "end": 28.498
+      },
+      {
+       "w": ",",
+       "start": 28.498,
+       "end": 28.536
+      },
+      {
+       "w": "like",
+       "start": 28.536,
+       "end": 28.698
+      },
+      {
+       "w": "P-G",
+       "start": 28.698,
+       "end": 29.073
+      },
+      {
+       "w": "dump",
+       "start": 29.073,
+       "end": 29.473
+      },
+      {
+       "w": ",",
+       "start": 29.473,
+       "end": 29.573
+      },
+      {
+       "w": "P-G",
+       "start": 29.573,
+       "end": 29.948
+      },
+      {
+       "w": "dump",
+       "start": 29.948,
+       "end": 30.248
+      },
+      {
+       "w": ",",
+       "start": 30.248,
+       "end": 30.323
+      },
+      {
+       "w": "diff",
+       "start": 30.323,
+       "end": 30.798
+      },
+      {
+       "w": ",",
+       "start": 30.798,
+       "end": 30.898
+      },
+      {
+       "w": "are",
+       "start": 30.898,
+       "end": 31.073
+      },
+      {
+       "w": "flagged",
+       "start": 31.073,
+       "end": 31.498
+      },
+      {
+       "w": "as",
+       "start": 31.498,
+       "end": 31.661
+      },
+      {
+       "w": "new",
+       "start": 31.661,
+       "end": 31.848
+      },
+      {
+       "w": "skill",
+       "start": 31.848,
+       "end": 32.123
+      },
+      {
+       "w": "candidates",
+       "start": 32.123,
+       "end": 32.673
+      },
+      {
+       "w": ",",
+       "start": 32.673,
+       "end": 32.723
+      },
+      {
+       "w": "not",
+       "start": 32.723,
+       "end": 32.986
+      },
+      {
+       "w": "fixed",
+       "start": 32.986,
+       "end": 33.623
+      },
+      {
+       "w": ".",
+       "start": 33.623,
+       "end": 33.773
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "n": 8,
+   "title": "Recap and next steps",
+   "chapter": "08 / Recap",
+   "start": 196.092,
+   "audio": 24.3,
+   "duration": 24.9,
+   "sentences": [
+    {
+     "text": "To recap.",
+     "caption": "To recap.",
+     "start": 0.0,
+     "end": 0.954,
+     "words": [
+      {
+       "w": "To",
+       "start": 0.041,
+       "end": 0.166
+      },
+      {
+       "w": "recap",
+       "start": 0.166,
+       "end": 0.916
+      },
+      {
+       "w": ".",
+       "start": 0.916,
+       "end": 1.091
+      }
+     ]
+    },
+    {
+     "text": "Every verdict names its rule.",
+     "caption": "Every verdict names its rule.",
+     "start": 0.954,
+     "end": 2.647,
+     "words": [
+      {
+       "w": "Every",
+       "start": 0.989,
+       "end": 1.289
+      },
+      {
+       "w": "verdict",
+       "start": 1.289,
+       "end": 1.664
+      },
+      {
+       "w": "names",
+       "start": 1.664,
+       "end": 1.902
+      },
+      {
+       "w": "its",
+       "start": 1.902,
+       "end": 2.089
+      },
+      {
+       "w": "rule",
+       "start": 2.089,
+       "end": 2.639
+      },
+      {
+       "w": ".",
+       "start": 2.639,
+       "end": 2.789
+      }
+     ]
+    },
+    {
+     "text": "Failures become a few named causes.",
+     "caption": "Failures become a few named causes.",
+     "start": 2.647,
+     "end": 4.781,
+     "words": [
+      {
+       "w": "Failures",
+       "start": 2.656,
+       "end": 3.156
+      },
+      {
+       "w": "become",
+       "start": 3.156,
+       "end": 3.418
+      },
+      {
+       "w": "a",
+       "start": 3.418,
+       "end": 3.481
+      },
+      {
+       "w": "few",
+       "start": 3.481,
+       "end": 3.706
+      },
+      {
+       "w": "named",
+       "start": 3.706,
+       "end": 3.981
+      },
+      {
+       "w": "causes",
+       "start": 3.981,
+       "end": 4.756
+      },
+      {
+       "w": ".",
+       "start": 4.756,
+       "end": 4.906
+      }
+     ]
+    },
+    {
+     "text": "Each cause gets one diff, backed by trace IDs.",
+     "caption": "Each cause gets one diff, backed by trace IDs.",
+     "start": 4.781,
+     "end": 7.733,
+     "words": [
+      {
+       "w": "Each",
+       "start": 4.806,
+       "end": 5.006
+      },
+      {
+       "w": "cause",
+       "start": 5.006,
+       "end": 5.294
+      },
+      {
+       "w": "gets",
+       "start": 5.294,
+       "end": 5.481
+      },
+      {
+       "w": "one",
+       "start": 5.481,
+       "end": 5.706
+      },
+      {
+       "w": "diff",
+       "start": 5.706,
+       "end": 6.106
+      },
+      {
+       "w": ",",
+       "start": 6.106,
+       "end": 6.206
+      },
+      {
+       "w": "backed",
+       "start": 6.206,
+       "end": 6.506
+      },
+      {
+       "w": "by",
+       "start": 6.506,
+       "end": 6.656
+      },
+      {
+       "w": "trace",
+       "start": 6.656,
+       "end": 6.956
+      },
+      {
+       "w": "IDs",
+       "start": 6.956,
+       "end": 7.706
+      },
+      {
+       "w": ".",
+       "start": 7.706,
+       "end": 7.856
+      }
+     ]
+    },
+    {
+     "text": "A person decides, and every decision is logged.",
+     "caption": "A person decides, and every decision is logged.",
+     "start": 7.733,
+     "end": 10.745,
+     "words": [
+      {
+       "w": "A",
+       "start": 7.758,
+       "end": 7.833
+      },
+      {
+       "w": "person",
+       "start": 7.833,
+       "end": 8.258
+      },
+      {
+       "w": "decides",
+       "start": 8.258,
+       "end": 8.933
+      },
+      {
+       "w": ",",
+       "start": 8.933,
+       "end": 9.033
+      },
+      {
+       "w": "and",
+       "start": 9.033,
+       "end": 9.17
+      },
+      {
+       "w": "every",
+       "start": 9.17,
+       "end": 9.483
+      },
+      {
+       "w": "decision",
+       "start": 9.483,
+       "end": 9.933
+      },
+      {
+       "w": "is",
+       "start": 9.933,
+       "end": 10.083
+      },
+      {
+       "w": "logged",
+       "start": 10.083,
+       "end": 10.733
+      },
+      {
+       "w": ".",
+       "start": 10.733,
+       "end": 10.883
+      }
+     ]
+    },
+    {
+     "text": "And success is measured on held-out runs.",
+     "caption": "And success is measured on held-out runs.",
+     "start": 10.745,
+     "end": 13.205,
+     "words": [
+      {
+       "w": "And",
+       "start": 10.754,
+       "end": 10.904
+      },
+      {
+       "w": "success",
+       "start": 10.904,
+       "end": 11.492
+      },
+      {
+       "w": "is",
+       "start": 11.492,
+       "end": 11.654
+      },
+      {
+       "w": "measured",
+       "start": 11.654,
+       "end": 12.054
+      },
+      {
+       "w": "on",
+       "start": 12.054,
+       "end": 12.179
+      },
+      {
+       "w": "held-out",
+       "start": 12.179,
+       "end": 12.554
+      },
+      {
+       "w": "runs",
+       "start": 12.554,
+       "end": 13.179
+      },
+      {
+       "w": ".",
+       "start": 13.179,
+       "end": 13.329
+      }
+     ]
+    },
+    {
+     "text": "Next steps: real agent reruns instead of simulated replay, checking the judge against human labels, normalizers for each harness, and deciding who may approve edits to shared skills.",
+     "caption": "Next steps: real agent reruns instead of simulated replay, checking the judge against human labels, normalizers for each harness, and deciding who may approve edits to shared skills.",
+     "start": 13.205,
+     "end": 24.3,
+     "words": [
+      {
+       "w": "Next",
+       "start": 13.251,
+       "end": 13.489
+      },
+      {
+       "w": "steps",
+       "start": 13.489,
+       "end": 14.176
+      },
+      {
+       "w": ":",
+       "start": 14.176,
+       "end": 14.314
+      },
+      {
+       "w": "real",
+       "start": 14.314,
+       "end": 14.614
+      },
+      {
+       "w": "agent",
+       "start": 14.614,
+       "end": 14.976
+      },
+      {
+       "w": "reruns",
+       "start": 14.976,
+       "end": 15.501
+      },
+      {
+       "w": "instead",
+       "start": 15.501,
+       "end": 15.839
+      },
+      {
+       "w": "of",
+       "start": 15.839,
+       "end": 15.964
+      },
+      {
+       "w": "simulated",
+       "start": 15.964,
+       "end": 16.576
+      },
+      {
+       "w": "replay",
+       "start": 16.576,
+       "end": 17.276
+      },
+      {
+       "w": ",",
+       "start": 17.276,
+       "end": 17.414
+      },
+      {
+       "w": "checking",
+       "start": 17.414,
+       "end": 17.764
+      },
+      {
+       "w": "the",
+       "start": 17.764,
+       "end": 17.864
+      },
+      {
+       "w": "judge",
+       "start": 17.864,
+       "end": 18.176
+      },
+      {
+       "w": "against",
+       "start": 18.176,
+       "end": 18.526
+      },
+      {
+       "w": "human",
+       "start": 18.526,
+       "end": 18.851
+      },
+      {
+       "w": "labels",
+       "start": 18.851,
+       "end": 19.451
+      },
+      {
+       "w": ",",
+       "start": 19.451,
+       "end": 19.564
+      },
+      {
+       "w": "normalizers",
+       "start": 19.564,
+       "end": 20.301
+      },
+      {
+       "w": "for",
+       "start": 20.301,
+       "end": 20.426
+      },
+      {
+       "w": "each",
+       "start": 20.426,
+       "end": 20.651
+      },
+      {
+       "w": "harness",
+       "start": 20.651,
+       "end": 21.351
+      },
+      {
+       "w": ",",
+       "start": 21.351,
+       "end": 21.451
+      },
+      {
+       "w": "and",
+       "start": 21.451,
+       "end": 21.564
+      },
+      {
+       "w": "deciding",
+       "start": 21.564,
+       "end": 22.076
+      },
+      {
+       "w": "who",
+       "start": 22.076,
+       "end": 22.226
+      },
+      {
+       "w": "may",
+       "start": 22.226,
+       "end": 22.401
+      },
+      {
+       "w": "approve",
+       "start": 22.401,
+       "end": 22.751
+      },
+      {
+       "w": "edits",
+       "start": 22.751,
+       "end": 23.126
+      },
+      {
+       "w": "to",
+       "start": 23.126,
+       "end": 23.264
+      },
+      {
+       "w": "shared",
+       "start": 23.264,
+       "end": 23.576
+      },
+      {
+       "w": "skills",
+       "start": 23.576,
+       "end": 24.301
+      },
+      {
+       "w": ".",
+       "start": 24.301,
+       "end": 24.451
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "total": 220.992
+}
