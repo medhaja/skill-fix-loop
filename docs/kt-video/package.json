@@ -1,0 +1,14 @@
+{
+  "name": "skill-fix-loop-kt-video",
+  "private": true,
+  "type": "module",
+  "description": "Narrated walkthrough video for Skill Fix Loop: Kokoro voiceover, HTML composition, Playwright + ffmpeg render.",
+  "scripts": {
+    "kt-video": "node render.mjs --tts",
+    "render": "node render.mjs",
+    "frame": "node render.mjs --frame"
+  },
+  "devDependencies": {
+    "playwright": "1.64.1"
+  }
+}

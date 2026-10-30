@@ -1,0 +1,796 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Skill Fix Loop · walkthrough</title>
+<style>
+  /* Color meaning, used the same way in every scene:
+     --data   cyan    a run / trace moving through the code
+     --fail   coral   failures and errors
+     --state  amber   stored files (traces.jsonl, SKILL.md, reviews.jsonl)
+     --human  violet  the human review step
+     --ok     green   success and fixes
+     dashed gray      optional LLM steps */
+  :root {
+    --bg: #0d1117; --panel: #151b26; --panel2: #1b2332; --line: #2b3446;
+    --text: #e7ecf3; --soft: #b8c1d1; --muted: #8b95a8;
+    --data: #4cc9f0; --fail: #f07167; --state: #f2b84b; --human: #a78bfa; --ok: #5bd3a0;
+    --display: "Bahnschrift", "Segoe UI", sans-serif;
+    --body: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    --mono: "Consolas", "Cascadia Mono", "Menlo", monospace;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: #05070a; color: var(--text); font-family: var(--body); }
+  #viewport { width: 1920px; height: 1080px; transform-origin: 0 0; }
+  #stage { width: 1920px; height: 1080px; position: relative; overflow: hidden;
+           background: radial-gradient(ellipse at 30% 0%, #141b27 0%, var(--bg) 60%); }
+  .scene { position: absolute; inset: 0; display: none; }
+  .abs { position: absolute; }
+  #chapter { position: absolute; left: 80px; top: 44px; font: 600 21px var(--body); color: var(--muted);
+             letter-spacing: .04em; z-index: 5; }
+  #chapter b { color: var(--data); font-family: var(--mono); font-weight: 700; margin-right: 2px; }
+  #progress { position: absolute; left: 80px; right: 80px; top: 1046px; height: 4px; display: flex; gap: 8px; z-index: 5; }
+  #progress .seg { height: 4px; background: var(--line); border-radius: 2px; position: relative; overflow: hidden; }
+  #progress .fill { position: absolute; inset: 0; background: var(--data); transform-origin: 0 0; }
+
+  .h1 { position: absolute; left: 80px; top: 92px; font: 600 54px var(--display); letter-spacing: -.01em; }
+  .sub { font: 400 28px var(--body); color: var(--soft); }
+  .panel { background: var(--panel); border: 1.5px solid var(--line); border-radius: 16px; }
+  .plabel { font: 700 18px var(--body); letter-spacing: .14em; color: var(--muted); text-transform: uppercase; }
+  .plabel span { letter-spacing: 0; text-transform: none; font-weight: 400; margin-left: 12px; }
+  .mono { font-family: var(--mono); }
+  .muted { color: var(--muted); }
+  .soft { color: var(--soft); }
+  .tag { display: inline-block; font: 16px var(--mono); color: var(--muted); border: 1px solid var(--line);
+         border-radius: 999px; padding: 3px 12px; }
+  .chip { display: inline-block; font: 600 22px var(--body); border-radius: 999px; padding: 6px 18px; white-space: nowrap; }
+  .v-success { background: var(--ok); color: #08130e; }
+  .v-skill { background: var(--fail); color: #1a0806; }
+  .v-unexp { border: 2px solid var(--fail); color: var(--fail); padding: 4px 16px; }
+  .v-other { border: 2px dashed var(--fail); color: #f3a29a; padding: 4px 16px; }
+  .v-unknown { background: #3a4252; color: var(--text); }
+  code, .code-i { font-family: var(--mono); color: var(--text); background: #222b3b; border-radius: 6px; padding: 1px 8px; }
+
+  /* code focus */
+  .code { font: 17px/32px var(--mono); padding: 0 0 14px; overflow: hidden; }
+  .code .head { display: flex; justify-content: space-between; padding: 14px 20px; border-bottom: 1px solid var(--line);
+                margin-bottom: 10px; font: 18px var(--mono); }
+  .code .head .path { color: var(--state); }
+  .code .row { position: relative; white-space: pre; padding-right: 16px; }
+  .code .rowbg { position: absolute; inset: 0; background: rgba(76, 201, 240, .14); border-left: 4px solid var(--data); opacity: 0; }
+  .code .ln { position: relative; display: inline-block; width: 46px; text-align: right; color: #556075; margin-right: 18px; }
+  .code .tx { position: relative; color: #d3d9e3; }
+  .code .kw { color: #ffffff; font-weight: 700; }
+  .code .st { color: #a9b6c9; }
+  .code .cm { color: #6f7a8f; font-style: italic; }
+  .code.dim .tx { color: #8792a6; }
+
+  .box { background: var(--panel); border: 2px solid var(--line); border-radius: 14px; padding: 22px 18px; text-align: center; }
+  .box .bname { font: 700 21px var(--mono); }
+  .box .bcap { font: 19px var(--body); color: var(--soft); margin-top: 12px; }
+  .arrow { height: 3px; background: var(--data); transform-origin: 0 50%; }
+  .arrow::after { content: ""; position: absolute; right: -2px; top: -6px; border-left: 11px solid var(--data);
+                  border-top: 7.5px solid transparent; border-bottom: 7.5px solid transparent; }
+  .dashed { border-style: dashed !important; }
+
+  .trow { position: absolute; left: 20px; right: 20px; height: 62px; display: flex; align-items: center; gap: 16px;
+          border-radius: 10px; padding: 0 16px; }
+  .trow .ttype { width: 74px; font: 600 15px var(--mono); color: var(--muted); text-transform: uppercase; }
+  .trow .tcmd { flex: 1; font: 21px var(--mono); }
+  .trow .exit { font: 600 18px var(--mono); }
+  .rule { display: inline-flex; align-items: center; gap: 10px; font: 19px var(--body); border: 1.5px solid var(--line);
+          border-radius: 10px; padding: 8px 14px; margin: 0 10px 12px 0; background: var(--panel); }
+  .rule b { font-family: var(--mono); color: inherit; opacity: .7; }
+
+  .dot { position: absolute; width: 15px; height: 15px; border-radius: 50%; background: var(--fail); margin: -7.5px 0 0 -7.5px; }
+  .crow { display: flex; align-items: center; gap: 26px; padding: 18px 24px; border-radius: 12px; border: 1.5px solid var(--line);
+          background: var(--panel); margin-bottom: 16px; }
+  .crow .n { font: 600 48px var(--display); width: 70px; text-align: right; color: var(--fail); }
+  .crow .cid { font: 18px var(--mono); color: var(--muted); width: 40px; }
+  .crow .lbl { font: 20px var(--mono); color: var(--text); }
+
+  .trowt { font: 21px var(--body); padding: 9px 16px; border-radius: 9px; margin-bottom: 4px; color: var(--soft); }
+  .diffrow { white-space: pre; font: 19px/38px var(--mono); padding: 0 18px; }
+  .diffrow.del { background: rgba(240, 113, 103, .16); color: #ffb4ad; }
+  .diffrow.add { background: rgba(91, 211, 160, .16); color: #a6f0cf; }
+  .diffrow.hunk { color: var(--muted); }
+  .idchip { display: inline-block; font: 18px var(--mono); color: var(--data); border: 1.5px solid #2e5566; border-radius: 8px;
+            padding: 4px 12px; margin: 0 10px 10px 0; }
+  .btn { display: inline-block; font: 600 26px var(--body); padding: 14px 34px; border-radius: 12px; margin-right: 18px; }
+  .bar-track { height: 26px; background: #232c3c; border-radius: 4px; position: relative; overflow: hidden; }
+  .bar-fill { position: absolute; left: 0; top: 0; bottom: 0; background: var(--ok); border-radius: 0 4px 4px 0; }
+  .shot { position: absolute; width: 326px; height: 300px; border-radius: 12px; overflow: hidden; border: 1.5px solid var(--line);
+          background: #f6f7f9; }
+  .shot img { width: 560px; height: auto; display: block; }
+  .shotcap { position: absolute; width: 326px; text-align: center; font: 600 21px var(--body); color: var(--soft); }
+  .gitem { font: 600 27px var(--body); padding: 16px 22px; border-radius: 12px; margin-bottom: 12px; border-left: 5px solid var(--line);
+           background: var(--panel); }
+  .gitem b { font-family: var(--mono); color: var(--muted); margin-right: 14px; }
+  .gcard { position: absolute; left: 0; top: 0; width: 100%; height: 100%; padding: 36px 40px; }
+  .gtitle { font: 600 34px var(--display); margin-bottom: 26px; }
+  .recap { display: flex; align-items: center; gap: 22px; font: 600 34px var(--body); margin-bottom: 26px; }
+  .recap i { width: 10px; height: 46px; border-radius: 5px; display: inline-block; }
+  .next { display: inline-block; font: 600 24px var(--body); border: 1.5px solid var(--line); border-radius: 999px;
+          padding: 12px 26px; margin-right: 14px; background: var(--panel); }
+
+  /* preview controls (not part of the rendered frame) */
+  #controls { position: fixed; left: 0; right: 0; bottom: 0; height: 52px; display: flex; gap: 14px; align-items: center;
+              padding: 0 16px; background: #111620; border-top: 1px solid #222a38; font: 14px var(--body); }
+  #controls input[type=range] { flex: 1; }
+  #controls button { font: 600 14px var(--body); padding: 6px 14px; }
+  body.render #controls { display: none; }
+</style>
+</head>
+<body>
+<div id="viewport"><div id="stage">
+  <div id="chapter"></div>
+  <div id="progress"></div>
+  <div id="scenes"></div>
+</div></div>
+<div id="controls">
+  <button id="play">Play</button>
+  <input id="scrub" type="range" min="0" max="1000" step="1" value="0">
+  <span id="clock" class="mono">0.00s</span>
+</div>
+<audio id="narration" src="out/narration.wav" preload="auto"></audio>
+
+<!-- Real code excerpts, shown verbatim (common indentation removed). -->
+<script type="text/plain" id="code-verdict">
+    # 4. Final tool call failed: the exit code decides, whatever the agent says.
+    last_idx, last = calls[-1]
+    if last.get("exit_code") not in (0, None):
+        note = " Agent feedback said success; the exit code wins." if said_success else ""
+        if ENVIRONMENT_ERRORS.search(last.get("output") or ""):
+            return Verdict(OTHER_ERROR, "final_exit_code_environment",
+                           f"Final tool call `{last['input']}` exited {last['exit_code']} "
+                           f"with an environment error.{note}", last_idx)
+        return Verdict(SKILL_ERROR, "final_exit_code",
+                       f"Final tool call `{last['input']}` exited {last['exit_code']}.{note}", last_idx)
+</script>
+<script type="text/plain" id="code-cluster">
+        vectors = TfidfVectorizer(token_pattern=r"[\w\-<>']{2,}").fit_transform(sigs).toarray()
+        model = AgglomerativeClustering(
+            n_clusters=None, metric="cosine", linkage="average", distance_threshold=DISTANCE_THRESHOLD,
+        )
+        labels = model.fit_predict(vectors)
+</script>
+<script type="text/plain" id="code-replay">
+FIX_MARKERS = {
+    "missing_env_var": "VERCEL_TOKEN",
+    "wrong_cli_flag": "--target=preview",
+    "unspecified_branch": "feature branch",
+    "invalid_migration_name": "V<n>__",
+</script>
+
+<script src="timing.js"></script>
+<script>
+"use strict";
+const T = window.TIMING;
+const params = new URLSearchParams(location.search);
+if (params.has("render")) document.body.classList.add("render");
+
+// ------------------------------------------------------------------ helpers
+const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+const ease = x => (x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2);
+const prog = (lt, t0, d = 0.6) => ease(clamp((lt - t0) / d));
+const mix = (a, b, p) => a + (b - a) * p;
+const esc = s => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+function show(el, p, dy = 18) {
+  el.style.opacity = p;
+  el.style.transform = `translateY(${((1 - p) * dy).toFixed(2)}px)`;
+  el.style.visibility = p <= 0.001 ? "hidden" : "visible";
+}
+// Fade in at t0, fade out at t1 (t1 optional).
+const window_ = (lt, t0, t1 = Infinity, d = 0.5) => prog(lt, t0, d) * (1 - prog(lt, t1, d));
+
+// Word-level beat lookup: the local time (s) at which `phrase` starts being spoken in scene n.
+const NORM = w => w.toLowerCase().replace(/[^a-z0-9]/g, "");
+function beatFinder(sc) {
+  const words = sc.sentences.flatMap(s => s.words).filter(w => NORM(w.w));
+  let text = "", owner = [];
+  words.forEach((w, i) => { const n = NORM(w.w); text += n; for (const _ of n) owner.push(i); });
+  return (phrase, after = 0) => {
+    const target = NORM(phrase);
+    let from = 0;
+    while (from < owner.length && words[owner[from]].start < after) from++;
+    const at = text.indexOf(target, from);
+    if (at < 0) throw new Error(`Scene ${sc.n}: phrase not found: "${phrase}"`);
+    return words[owner[at]].start;
+  };
+}
+
+function highlightPython(line) {
+  const re = /(#.*$)|(r?f?"(?:[^"\\]|\\.)*")|\b(if|return|not|in|else|None|or|and)\b/g;
+  let out = "", last = 0, m;
+  while ((m = re.exec(line))) {
+    out += esc(line.slice(last, m.index));
+    const cls = m[1] ? "cm" : m[2] ? "st" : "kw";
+    out += `<span class="${cls}">${esc(m[0])}</span>`;
+    last = m.index + m[0].length;
+  }
+  return out + esc(line.slice(last));
+}
+function codeLines(id) {
+  const lines = document.getElementById(id).textContent.split("\n").filter(l => l.trim());
+  const indent = Math.min(...lines.map(l => l.match(/^ */)[0].length));
+  return lines.map(l => l.slice(indent));
+}
+function codePanel(id, path, startLine, extraHead = "") {
+  const rows = codeLines(id).map((l, i) =>
+    `<div class="row"><div class="rowbg"></div><span class="ln">${startLine + i}</span><span class="tx">${highlightPython(l)}</span></div>`
+  ).join("");
+  return `<div class="head"><span class="path">${path}</span><span class="muted">${extraHead}</span></div>${rows}`;
+}
+function setRows(panel, active) {  // active: {rowIndex: 0..1}
+  panel.querySelectorAll(".rowbg").forEach((bg, i) => { bg.style.opacity = active[i] || 0; });
+}
+function rng(seed) {  // mulberry32: deterministic positions
+  return () => {
+    seed |= 0; seed = (seed + 0x6d2b79f5) | 0;
+    let t = Math.imul(seed ^ (seed >>> 15), 1 | seed);
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+const PERSON = `<svg width="40" height="40" viewBox="0 0 40 40" style="vertical-align:middle"><circle cx="20" cy="13" r="7" fill="none" stroke="#a78bfa" stroke-width="3"/><path d="M6 36c1-8 7-12 14-12s13 4 14 12" fill="none" stroke="#a78bfa" stroke-width="3" stroke-linecap="round"/></svg>`;
+
+// ------------------------------------------------------------------ scenes
+// Each scene: html (static markup; elements tagged with k="name") and update(lt, E, B), where B holds beat times.
+const SCENES = [];
+
+// 1 ─ The missing step
+SCENES.push({
+  beats: b => {
+    const verdict = b("a verdict");
+    return { changelog: b("changelog"), verdict, next: b("the next step"), proto: b("Skill Fix Loop is a prototype"),
+      v: ["Success", "Skill error", "Unexpected behavior", "Other error", "or Unknown"].map(p => b(p, verdict)), local: b("runs locally") };
+  },
+  html: `
+    <div class="h1">Skill Fix Loop</div>
+    <div class="abs sub" style="left:80px;top:166px">From failed skill runs to reviewable edits</div>
+    <div k="measure" class="abs panel" style="left:80px;top:250px;width:860px;height:590px;padding:30px 40px">
+      <div class="plabel">Measure <span>already public</span></div>
+      <div k="analytics" style="margin-top:34px">
+        <div style="font:600 25px var(--body)">Success analytics per skill <span class="tag" style="margin-left:10px">changelog</span></div>
+        ${[0.74, 0.58, 0.83].map((w, i) => `<div style="display:flex;align-items:center;gap:18px;margin-top:20px">
+          <span class="mono muted" style="width:90px;font-size:18px">skill ${"ABC"[i]}</span>
+          <div class="bar-track" style="flex:1;height:18px"><div class="bar-fill" style="width:${w * 100}%"></div></div></div>`).join("")}
+      </div>
+      <div k="verdicts" style="margin-top:48px">
+        <div style="font:600 25px var(--body)">A verdict for every run <span class="tag" style="margin-left:10px">Skill Evals docs</span></div>
+        <div style="margin-top:22px;display:flex;gap:10px">
+          <span k="v0" style="font-size:20px" class="chip v-success">Success</span>
+          <span k="v1" style="font-size:20px" class="chip v-skill">Skill error</span>
+          <span k="v2" style="font-size:20px" class="chip v-unexp">Unexpected behavior</span>
+          <span k="v3" style="font-size:20px" class="chip v-other">Other error</span>
+          <span k="v4" style="font-size:20px" class="chip v-unknown">Unknown</span>
+        </div>
+      </div>
+    </div>
+    <div k="fix" class="abs panel dashed" style="left:980px;top:250px;width:860px;height:590px;padding:30px 40px">
+      <div class="plabel">Fix <span>not described publicly</span></div>
+      <div k="q" class="abs" style="left:0;right:0;top:200px;text-align:center;font:600 150px var(--display);color:#3a4456">?</div>
+      <div k="f0" class="abs crow" style="left:60px;right:60px;top:110px;border-color:var(--fail)"><span style="font:600 28px var(--body);color:var(--fail)">Failed runs</span><span class="soft" style="font-size:22px">verdict + the rule that fired</span></div>
+      <div k="f1" class="abs crow" style="left:60px;right:60px;top:270px;border-color:var(--data)"><span style="font:600 28px var(--body);color:var(--data)">Named causes</span><span class="soft" style="font-size:22px">grouped by error signature</span></div>
+      <div k="f2" class="abs crow" style="left:60px;right:60px;top:430px;border-color:var(--human)"><span style="font:600 28px var(--body);color:var(--human)">Reviewable edit</span><span class="soft" style="font-size:22px">a diff a person approves</span></div>
+      <div k="fa0" class="abs" style="left:420px;top:204px;font:36px var(--body);color:var(--muted)">↓</div>
+      <div k="fa1" class="abs" style="left:420px;top:364px;font:36px var(--body);color:var(--muted)">↓</div>
+    </div>
+    <div k="foot" class="abs" style="left:80px;top:890px;width:1760px;font:24px var(--body);color:var(--soft)">
+      <span class="tag" style="margin-right:14px">local</span><span class="tag" style="margin-right:18px">synthetic data</span>
+      Independent prototype built from public information and synthetic data. Not affiliated with Nessie.
+    </div>`,
+  update(lt, E, B) {
+    show(E.measure, prog(lt, 0.15));
+    show(E.analytics, prog(lt, B.changelog - 0.2));
+    show(E.verdicts, prog(lt, B.verdict - 0.3));
+    B.v.forEach((t, i) => show(E["v" + i], prog(lt, t - 0.1, 0.4), 10));
+    show(E.fix, prog(lt, B.next));
+    const fill = prog(lt, B.proto, 0.7);
+    E.q.style.opacity = (1 - fill) * prog(lt, B.next + 0.2);
+    E.fix.style.borderColor = fill > 0.5 ? "var(--data)" : "var(--line)";
+    E.fix.classList.toggle("dashed", fill <= 0.5);
+    show(E.f0, prog(lt, B.proto + 0.1));
+    show(E.fa0, prog(lt, B.proto + 0.5), 6);
+    show(E.f1, prog(lt, B.proto + 0.6));
+    show(E.fa1, prog(lt, B.proto + 1.0), 6);
+    show(E.f2, prog(lt, B.proto + 1.1));
+    show(E.foot, prog(lt, B.local - 0.2));
+  },
+});
+
+// 2 ─ Architecture
+const BX = [80, 374, 668, 962, 1256, 1550], BW = 250, BY = 430;
+SCENES.push({
+  beats: b => ({ jsonl: b("Jason lines"), rules: b("Rules give"), group: b("grouped into causes"), draft: b("drafted edit"),
+    once: b("runs once"), person: b("a person approves"), replay: b("replay reports"), judge: b("judging runs"),
+    wording: b("wording the edit"), off: b("stay off") }),
+  html: `
+    <div class="h1">One pipeline, plain code first</div>
+    <div k="build" class="abs" style="left:${BX[0]}px;top:${BY - 66}px;width:${BX[3] + BW - BX[0]}px;height:40px;border:2px solid #3a4456;border-bottom:none;border-radius:10px 10px 0 0">
+      <div class="abs mono" style="left:24px;top:-34px;font-size:20px;background:var(--bg);padding:0 10px"><span style="color:var(--data)">build()</span> <span class="muted">· loop/pipeline.py · runs once at startup</span></div>
+    </div>
+    ${[["traces.jsonl", "600 synthetic runs"], ["classify()", "verdict + rule"], ["cluster_failures()", "named causes"],
+       ["draft()", "one diff per cause"], ["ReviewLog", "approve / edit / reject"], ["replay()", "held-out, before vs. after"]]
+      .map(([n, c], i) => `<div k="b${i}" class="abs box" style="left:${BX[i]}px;top:${BY}px;width:${BW}px;height:140px">
+        <div class="bname">${n}</div><div class="bcap">${c}</div></div>`).join("")}
+    ${[1, 2, 3, 4, 5].map(i => `<div k="a${i}" class="abs arrow" style="left:${BX[i - 1] + BW + 4}px;top:${BY + 69}px;width:${BX[i] - BX[i - 1] - BW - 10}px"></div>`).join("")}
+    <div k="icon" class="abs" style="left:${BX[4] + BW / 2 - 20}px;top:${BY + 152}px">${PERSON}</div>
+    <div k="mini" class="abs" style="left:${BX[5] + 10}px;top:${BY + 160}px;width:${BW - 20}px">
+      <div style="display:flex;align-items:center;gap:10px;font:16px var(--body)" class="muted"><span style="width:52px">before</span><div class="bar-track" style="flex:1;height:14px"><div class="bar-fill" style="width:62%"></div></div></div>
+      <div style="display:flex;align-items:center;gap:10px;font:16px var(--body);margin-top:10px" class="muted"><span style="width:52px">after</span><div class="bar-track" style="flex:1;height:14px"><div k="minifill" class="bar-fill" style="width:62%"></div></div></div>
+    </div>
+    ${[["j", 1, "optional LLM judge", "Unknown runs only · stored apart"], ["d", 3, "optional LLM drafter", "edit wording · falls back to template"]]
+      .map(([k, i, n, c]) => `<div k="${k}c" class="abs" style="left:${BX[i] + BW / 2}px;top:${BY + 140}px;height:80px;border-left:2px dashed #5b6579"></div>
+        <div k="${k}" class="abs box dashed" style="left:${BX[i] - 30}px;top:${BY + 220}px;width:${BW + 60}px;height:120px;border-color:#5b6579;background:transparent">
+          <div class="bname" style="font-family:var(--body);color:var(--soft)">${n}</div><div class="bcap muted" style="font-size:17px">${c}</div></div>`).join("")}
+    <div k="off" class="abs mono" style="left:${BX[1] - 30}px;top:${BY + 380}px;font-size:22px">
+      <span class="muted">LLM_MODEL unset →</span> rule verdicts + template drafter <span class="muted">(the default)</span></div>`,
+  update(lt, E, B) {
+    const on = [B.jsonl - 0.2, B.rules, B.group, B.draft, B.person, B.replay];
+    const col = ["var(--state)", "var(--data)", "var(--data)", "var(--data)", "var(--human)", "var(--ok)"];
+    on.forEach((t, i) => {
+      show(E["b" + i], prog(lt, t - 0.15));
+      E["b" + i].style.borderColor = prog(lt, t) > 0.5 ? col[i] : "var(--line)";
+      if (i) E["a" + i].style.transform = `scaleX(${prog(lt, t - 0.35, 0.45)})`;
+    });
+    show(E.build, prog(lt, B.once - 0.1), 8);
+    show(E.icon, prog(lt, B.person + 0.2), 8);
+    show(E.mini, prog(lt, B.replay + 0.3), 8);
+    E.minifill.style.width = mix(62, 85, prog(lt, B.replay + 1.0, 0.9)) + "%";
+    const dim = mix(1, 0.4, prog(lt, B.off));
+    ["j", "d"].forEach((k, i) => {
+      const p = prog(lt, (i ? B.wording : B.judge) - 0.2);
+      show(E[k], p * dim); E[k + "c"].style.opacity = p * dim;
+    });
+    show(E.off, prog(lt, B.off + 0.1));
+  },
+});
+
+// 3 ─ One run gets a verdict
+const STEPS = [["prompt", "Can you deploy a preview of the search-filters branch?", null],
+  ["bash", "git branch --show-current", 0], ["bash", "npm ci", 0], ["bash", "npm run build", 0],
+  ["bash", "vercel build", 0], ["bash", "vercel deploy --prebuilt --preview", 2]];
+const RULES = ["empty trace", "truncated", "retry loop", "final exit code", "error in output", "missing output", "feedback vs. outcome", "success"];
+SCENES.push({
+  beats: b => ({ branch: b("checks the branch"), installs: b("installs"), builds: b("builds"), deploy: b("runs ver-sell deploy"),
+    exit2: b("exits with code two"), success: b("still reports success"), order: b("Verdict rules run in order"),
+    four: b("Rule four"), nonzero: b("non-zero exit is"), whatever: b("whatever the agent said"),
+    env: b("unless the error looks environmental"), records: b("records the rule") }),
+  html: `
+    <div class="h1">One run: <span class="mono" style="color:var(--data);font-size:48px">dep-086-3be2</span></div>
+    <div k="card" class="abs panel" style="left:80px;top:200px;width:680px;height:800px">
+      <div class="abs" style="left:24px;top:20px"><span class="plabel">Trace</span> <span class="mono soft" style="font-size:19px;margin-left:12px">skill: deploy-preview · split: mining</span></div>
+      <div k="marker" class="abs" style="left:20px;right:20px;height:62px;border-radius:10px;background:rgba(76,201,240,.10);border-left:4px solid var(--data)"></div>
+      ${STEPS.map(([ty, cmd, ex], i) => `<div class="trow" style="top:${72 + i * 70}px">
+        <span class="ttype">${ty}</span>
+        <span class="${ty === "prompt" ? "" : "tcmd"}" style="${ty === "prompt" ? "flex:1;font:19px var(--body);color:var(--soft)" : ""}">${esc(cmd)}</span>
+        ${ex === null ? "" : `<span k="x${i}" class="exit" style="color:${ex ? "var(--fail)" : "var(--ok)"}">exit ${ex}</span>`}</div>`).join("")}
+      <div k="err" class="abs mono" style="left:40px;right:30px;top:500px;font-size:18px;line-height:28px;color:#ffb4ad;border-left:3px solid var(--fail);padding-left:14px">
+        Error: unknown or unexpected option: --preview (vercel CLI 42.4.6). Use --target=preview instead.</div>
+      <div k="fb" class="abs" style="left:40px;right:30px;top:610px;padding:16px 20px;border-radius:12px;background:var(--panel2);border:1.5px solid var(--line)">
+        <div class="mono muted" style="font-size:17px">agent_feedback · rating: <span style="color:var(--ok)">success</span></div>
+        <div style="font:22px var(--body);margin-top:6px">“Deployed the preview as asked.”</div>
+        <div k="strike" class="abs" style="left:18px;width:330px;top:66px;height:3px;background:var(--fail);transform-origin:0 50%"></div>
+        <div k="ignored" class="abs mono" style="right:16px;top:12px;font-size:16px;color:var(--fail)">ignored · exit code wins</div>
+      </div>
+    </div>
+    <div k="rules" class="abs" style="left:800px;top:200px;width:1040px">
+      ${RULES.map((r, i) => `<span k="r${i}" class="rule"><b>${i + 1}</b>${r}</span>`).join("")}
+    </div>
+    <div k="code" class="abs panel code" style="left:800px;top:340px;width:1040px">${codePanel("code-verdict", "loop/verdict.py", 79, "classify() · rule 4")}</div>
+    <div k="verdict" class="abs panel" style="left:800px;top:790px;width:1040px;padding:20px 26px;border-color:var(--fail)">
+      <div style="display:flex;align-items:center;gap:18px"><span class="chip v-skill">Skill error</span>
+        <span class="mono" style="font-size:20px">rule: <span style="color:var(--data)">final_exit_code</span> · step_index: <span style="color:var(--data)">5</span></span></div>
+      <div class="soft" style="font:20px var(--body);margin-top:14px">reason: “Final tool call <code>vercel deploy --prebuilt --preview</code> exited 2. Agent feedback said success; the exit code wins.”</div>
+    </div>`,
+  update(lt, E, B) {
+    show(E.card, prog(lt, 0.1));
+    const stops = [[0, 0], [B.branch, 1], [B.installs, 2], [B.builds, 3], [B.builds + 0.45, 4], [B.deploy, 5]];
+    let y = 0;
+    stops.forEach(([t, r], i) => { if (i) y = mix(y, r, prog(lt, t - 0.15, 0.35)); });
+    E.marker.style.top = 72 + y * 70 + "px";
+    E.marker.style.borderLeftColor = prog(lt, B.exit2) > 0.5 ? "var(--fail)" : "var(--data)";
+    E.marker.style.background = prog(lt, B.exit2) > 0.5 ? "rgba(240,113,103,.12)" : "rgba(76,201,240,.10)";
+    [1, 2, 3, 4].forEach(i => show(E["x" + i], prog(lt, stops[i][0] + 0.1, 0.3), 0));
+    show(E.x5, prog(lt, B.exit2, 0.3), 0);
+    show(E.err, prog(lt, B.exit2 + 0.2));
+    show(E.fb, prog(lt, B.success - 0.1));
+    E.strike.style.transform = `scaleX(${prog(lt, B.whatever, 0.5)})`;
+    show(E.ignored, prog(lt, B.whatever + 0.3), 0);
+    show(E.rules, prog(lt, B.order - 0.2));
+    RULES.forEach((_, i) => {
+      const el = E["r" + i];
+      const tCheck = i < 3 ? B.order + 0.6 + i * 0.45 : B.four;
+      const checking = i <= 3 ? prog(lt, tCheck - 0.1, 0.25) : 0;
+      if (i === 3) {
+        el.style.background = checking > 0.5 ? "var(--fail)" : "var(--panel)";
+        el.style.color = checking > 0.5 ? "#1a0806" : "var(--text)";
+        el.style.borderColor = checking > 0.5 ? "var(--fail)" : "var(--line)";
+        el.style.opacity = 1;
+      } else if (i < 3) {
+        const pulse = checking * (1 - prog(lt, tCheck + 0.25, 0.25));
+        el.style.borderColor = pulse > 0.5 ? "var(--data)" : "var(--line)";
+        el.style.background = "var(--panel)"; el.style.color = "var(--text)";
+        el.style.opacity = mix(1, 0.55, prog(lt, tCheck + 0.25, 0.3));
+      } else {
+        el.style.background = "var(--panel)"; el.style.color = "var(--text)"; el.style.borderColor = "var(--line)";
+        el.style.opacity = mix(1, 0.35, prog(lt, B.four, 0.4));
+      }
+    });
+    show(E.code, prog(lt, B.order + 0.1));
+    const a = prog(lt, B.four - 0.1, 0.3) * (1 - prog(lt, B.nonzero - 0.1, 0.3));
+    const s = prog(lt, B.nonzero - 0.1, 0.3) * (1 - prog(lt, B.whatever - 0.1, 0.3));
+    const w = prog(lt, B.whatever - 0.1, 0.3) * (1 - prog(lt, B.env - 0.1, 0.3));
+    const e = prog(lt, B.env - 0.1, 0.3) * (1 - prog(lt, B.records - 0.1, 0.3));
+    const r = prog(lt, B.records - 0.1, 0.3);
+    setRows(E.code, { 0: a, 1: a, 2: Math.max(a, s), 3: w, 4: e, 5: e, 6: e, 7: e, 8: Math.max(s, r), 9: Math.max(s, r) });
+    show(E.verdict, prog(lt, B.records));
+  },
+});
+
+// 4 ─ From failures to causes
+const C2 = ["dep-060-bf16", "dep-062-c2d0", "dep-071-8b79", "dep-086-3be2"];
+const COUNTS = [22, 18, 7], CX = [230, 480, 720], CY = 690;
+const DOTS = (() => {
+  const r = rng(11), out = [];
+  COUNTS.forEach((n, c) => {
+    const cols = Math.ceil(Math.sqrt(n)), rows = Math.ceil(n / cols);
+    for (let i = 0; i < n; i++) {
+      out.push({ c, i, x0: 110 + r() * 740, y0: 470 + r() * 420,
+        x1: CX[c] + ((i % cols) - (cols - 1) / 2) * 26, y1: CY + (Math.floor(i / cols) - (rows - 1) / 2) * 26 });
+    }
+  });
+  return out;
+})();
+SCENES.push({
+  beats: b => ({ norm: b("normalized"), strip: b("Paths"), share: b("share one signature"), tfidf: b("T-F I-D-F"),
+    agg: b("agglomerative clustering"), mining: b("mining split"), three: b("three causes"), c1: b("a missing Ver-sell token"),
+    c2: b("the removed flag"), c3: b("deploying from main") }),
+  html: `
+    <div class="h1">From one error line to a named cause</div>
+    <div k="raw" class="abs" style="left:80px;top:200px;width:1760px">
+      <div class="mono muted" style="font-size:18px">error_line() · raw text from the failing step</div>
+      <div class="mono" style="font-size:24px;margin-top:8px;color:#ffb4ad">Error: unknown or unexpected option: --preview (vercel CLI <span k="ver" style="border-radius:5px;padding:0 4px">42.4.6</span>). Use --target=preview instead.</div>
+    </div>
+    <div k="sig" class="abs" style="left:80px;top:300px;width:1760px">
+      <div class="mono muted" style="font-size:18px">normalize() · signature <span class="muted">(paths, IDs and numbers stripped, lowercased)</span></div>
+      <div class="mono" style="font-size:24px;margin-top:8px">error: unknown or unexpected option: --preview (vercel cli <span style="color:var(--data);font-weight:700">&lt;n&gt;</span>). use --target=preview instead.</div>
+    </div>
+    <div k="share" class="abs tag" style="left:1350px;top:337px;color:var(--data);border-color:#2e5566;font-size:18px">18 runs share it</div>
+    <div k="dotlbl" class="abs mono muted" style="left:110px;top:430px;font-size:18px">47 failed runs · deploy-preview mining set</div>
+    <div k="dots">${DOTS.map((d, j) => `<div class="dot" k="d${j}"></div>`).join("")}</div>
+    ${COUNTS.map((n, c) => `<div k="cl${c}" class="abs mono" style="left:${CX[c] - 80}px;top:${CY + 100}px;width:160px;text-align:center;font-size:22px">c${c + 1} · <b style="color:var(--fail)">${n}</b></div>`).join("")}
+    <div k="ring" class="abs" style="left:${CX[1] - 72}px;top:${CY - 72}px;width:144px;height:144px;border:2px solid var(--data);border-radius:50%"></div>
+    <div k="lab" class="abs mono" style="left:${CX[1] - 140}px;top:${CY - 104}px;width:280px;text-align:center;font-size:17px;color:var(--data)">dep-086-3be2 is here</div>
+    <div k="code" class="abs panel code" style="left:890px;top:430px;width:950px;font-size:16px">${codePanel("code-cluster", "loop/cluster.py", 195, "threshold 0.6 · per skill")}</div>
+    <div k="split" class="abs" style="left:910px;top:720px;width:930px">
+      <div class="mono muted" style="font-size:18px;margin-bottom:10px">deploy-preview · 200 runs</div>
+      <div style="display:flex;gap:4px;height:46px;font:600 20px var(--body)">
+        <div style="flex:7;background:rgba(76,201,240,.22);border:2px solid var(--data);border-radius:8px;display:flex;align-items:center;padding-left:16px">140 mining</div>
+        <div style="flex:3;background:#232c3c;border-radius:8px;display:flex;align-items:center;padding-left:16px;color:var(--muted)">60 held-out</div>
+      </div>
+      <div class="soft" style="font:20px var(--body);margin-top:14px">Only failures are clustered; Success and Unknown runs are left out.</div>
+    </div>
+    <div k="causes" class="abs" style="left:910px;top:430px;width:930px">
+      ${[["c1", 22, "Environment variable VERCEL_TOKEN is not set"], ["c2", 18, "unknown or unexpected option: --preview (vercel CLI &lt;n&gt;)"],
+         ["c3", 7, "refusing to deploy protected branch 'main' to a preview"]].map(([id, n, l], i) =>
+        `<div k="cr${i}" class="crow" style="${i === 1 ? "border-color:var(--data)" : ""}"><span class="n">${n}</span><span class="cid">${id}</span><span class="lbl">${l}</span></div>`).join("")}
+    </div>`,
+  update(lt, E, B) {
+    show(E.raw, prog(lt, 0.1));
+    E.ver.style.background = `rgba(240,113,103,${0.35 * window_(lt, B.norm, B.share)})`;
+    E.raw.style.opacity = mix(1, 0.5, prog(lt, B.share));
+    show(E.sig, prog(lt, B.strip));
+    show(E.share, prog(lt, B.share + 0.2), 6);
+    show(E.dotlbl, prog(lt, 0.6));
+    const c = prog(lt, B.agg, 1.2);
+    DOTS.forEach((d, j) => {
+      const el = E["d" + j];
+      el.style.left = mix(d.x0, d.x1, c) + "px";
+      el.style.top = mix(d.y0, d.y1, c) + "px";
+      el.style.opacity = prog(lt, 0.4 + (j % 9) * 0.05, 0.5);
+      const isOurs = d.c === 1 && d.i === 3;
+      el.style.background = isOurs && c > 0.5 ? "var(--data)" : "var(--fail)";
+    });
+    COUNTS.forEach((_, i) => show(E["cl" + i], prog(lt, B.agg + 1.0 + i * 0.15), 8));
+    show(E.ring, prog(lt, B.agg + 1.4), 0);
+    show(E.lab, prog(lt, B.agg + 1.4), 6);
+    show(E.code, window_(lt, B.tfidf - 0.3, B.three - 0.3));
+    setRows(E.code, { 0: window_(lt, B.tfidf, B.agg, 0.3), 1: prog(lt, B.agg, 0.3), 2: prog(lt, B.agg, 0.3), 3: prog(lt, B.agg, 0.3) });
+    show(E.split, window_(lt, B.mining - 0.2, B.three - 0.3));
+    show(E.causes, prog(lt, B.three));
+    [B.c1, B.c2, B.c3].forEach((t, i) => show(E["cr" + i], prog(lt, t - 0.2), 10));
+  },
+});
+
+// 5 ─ Draft, review, replay
+const TEMPLATES = ["env var is not set", "renamed CLI flag", "protected branch", "migration file name", "missing expected output",
+  "retry loop on 429", "context length", "lock timeout"];
+const CITED = ["dep-060-bf16", "dep-062-c2d0", "dep-071-8b79", "dep-086-3be2", "dep-094-e095"];
+const BARS = [["Before (no edits approved)", 40, 40], ["Approve this edit only", 40, 44], ["Approve all three edits", 40, 57]];
+SCENES.push({
+  beats: b => ({ templates: b("set of templates"), flag: b("renamed flag"), step4: b("rewrites step four"), rationale: b("a rationale"),
+    reviewer: b("A reviewer approves"), rejects: b("or rejects"), appended: b("appended to reviews"), latest: b("latest one wins"),
+    heldout: b("checks the held-out"), only: b("Approve only this edit"), all: b("Approve all three") }),
+  html: `
+    <div class="h1">Draft → review → replay</div>
+    <div k="A">
+      <div k="tpl" class="abs panel" style="left:80px;top:200px;width:570px;padding:22px 20px">
+        <div class="plabel" style="margin:0 0 14px 16px">Templates <span class="mono">loop/drafter.py</span></div>
+        ${TEMPLATES.map((t, i) => `<div k="t${i}" class="trowt">${t}</div>`).join("")}
+        <div class="trowt muted" style="font-style:italic">fallback: “known failure” note</div>
+        <div k="rx" class="mono" style="margin:14px 16px 0;font-size:16px;line-height:24px;color:var(--soft)">unknown or unexpected option: (--[\\w-]+)<br>.*?use (--[\\w=-]+) instead</div>
+      </div>
+      <div k="diff" class="abs panel" style="left:690px;top:200px;width:1150px;padding-bottom:12px">
+        <div class="code"><div class="head"><span class="path">skills/deploy-preview/SKILL.md</span><span class="muted">unified diff · 1 line changed</span></div></div>
+        ${[["hunk", "@@ -14,7 +14,7 @@"], ["", " 3. Run `vercel build` to produce the prebuilt output."],
+           ["del", "-4. Run `vercel deploy --prebuilt --preview` and capture the URL it prints."],
+           ["add", "+4. Run `vercel deploy --prebuilt --target=preview` and capture the URL it prints."],
+           ["", " 5. Reply with the URL."]].map(([c, l]) => `<div class="diffrow ${c}">${esc(l)}</div>`).join("")}
+      </div>
+      <div k="rat" class="abs panel" style="left:690px;top:530px;width:1150px;padding:24px 28px">
+        <div class="plabel" style="margin-bottom:14px">Rationale</div>
+        <div style="font:23px/36px var(--body)">18 of 47 failed runs of <code>deploy-preview</code> in the mining set (38%) share this signature.
+          The CLI rejects <code>--preview</code> and suggests <code>--target=preview</code>; the skill now uses <code>--target=preview</code>.</div>
+        <div style="margin-top:20px">${CITED.map((c, i) => `<span k="c${i}" class="idchip">${c}</span>`).join("")}</div>
+      </div>
+    </div>
+    <div k="Bv">
+      <div k="btns" class="abs" style="left:80px;top:220px">
+        <span k="approve" class="btn" style="background:var(--ok);color:#08130e">Approve</span>
+        <span class="btn" style="border:2px solid var(--human);color:var(--human)">Edit diff</span>
+        <span class="btn" style="border:2px solid var(--fail);color:var(--fail)">Reject</span>
+        <div class="abs" style="left:0;top:86px;width:700px">${PERSON}<span class="soft" style="font:21px var(--body);margin-left:10px">reviewer decides · nothing is written to SKILL.md</span></div>
+      </div>
+      <div k="log" class="abs panel" style="left:80px;top:400px;width:820px;height:300px;padding:24px 26px">
+        <div class="mono" style="font-size:20px"><span style="color:var(--state)">data/reviews.jsonl</span> <span class="muted">· append-only</span></div>
+                <div k="row" class="mono" style="font-size:18px;margin-top:24px;line-height:30px;padding:12px 16px;border-radius:10px;border:1.5px solid var(--state);background:rgba(242,184,75,.08)">
+          {"timestamp": "…", "draft_id": "deploy-preview-c2",<br>&nbsp;"skill": "deploy-preview", <span style="color:var(--ok)">"decision": "approved"</span>,<br>&nbsp;"reviewer": "demo-reviewer", "diff": "--- a/skills/…"}</div>
+        <div k="wins" class="soft" style="font:20px var(--body);margin-top:20px">Latest decision per draft wins. Approved and edited diffs feed replay.</div>
+      </div>
+      <div k="bars" class="abs panel" style="left:960px;top:220px;width:880px;padding:28px 34px">
+        <div style="font:600 27px var(--body)">Held-out success · deploy-preview</div>
+        <div class="soft" style="font:20px var(--body);margin-top:6px">60 held-out runs · <b style="color:var(--text)">simulated replay</b> (fix markers, no agent re-run)</div>
+        ${BARS.map(([l], i) => `<div k="bar${i}" style="margin-top:34px">
+          <div style="display:flex;justify-content:space-between;font:22px var(--body)"><span class="soft">${l}</span><span k="val${i}" class="mono" style="font-size:24px">40 / 60</span></div>
+          <div class="bar-track" style="margin-top:10px"><div k="fill${i}" class="bar-fill"></div></div></div>`).join("")}
+      </div>
+    </div>`,
+  update(lt, E, B) {
+    const A = 1 - prog(lt, B.reviewer - 0.5, 0.5);
+    E.A.style.opacity = A; E.A.style.visibility = A < 0.001 ? "hidden" : "visible";
+    show(E.tpl, prog(lt, B.templates - 0.3));
+    TEMPLATES.forEach((_, i) => {
+      const on = i === 1 ? prog(lt, B.flag - 0.2, 0.3) : 0;
+      E["t" + i].style.background = `rgba(76,201,240,${0.16 * on})`;
+      E["t" + i].style.color = on > 0.5 ? "var(--text)" : "var(--soft)";
+      E["t" + i].style.boxShadow = on > 0.5 ? "inset 4px 0 0 var(--data)" : "none";
+    });
+    show(E.rx, prog(lt, B.flag + 0.2), 6);
+    show(E.diff, prog(lt, B.step4 - 0.2));
+    show(E.rat, prog(lt, B.rationale - 0.1));
+    CITED.forEach((_, i) => {
+      show(E["c" + i], prog(lt, B.rationale + 0.6 + i * 0.12, 0.3), 6);
+      if (i === 3) E.c3.style.boxShadow = prog(lt, B.rationale + 1.5) > 0.5 ? "0 0 0 3px rgba(76,201,240,.5)" : "none";
+    });
+    const Bp = prog(lt, B.reviewer - 0.1, 0.5);
+    E.Bv.style.opacity = Bp; E.Bv.style.visibility = Bp < 0.001 ? "hidden" : "visible";
+    show(E.btns, Bp);
+    const press = window_(lt, B.rejects + 0.4, B.rejects + 0.75, 0.15);
+    E.approve.style.transform = `scale(${1 - 0.05 * press})`;
+    E.approve.style.boxShadow = prog(lt, B.rejects + 0.5) > 0.5 ? "0 0 0 4px rgba(91,211,160,.35)" : "none";
+    show(E.log, prog(lt, B.appended - 0.6));
+    show(E.row, prog(lt, B.appended, 0.5), 30);
+    show(E.wins, prog(lt, B.latest - 0.1), 6);
+    show(E.bars, prog(lt, B.heldout - 0.3));
+    const starts = [B.heldout, B.only, B.all];
+    BARS.forEach(([, from, to], i) => {
+      show(E["bar" + i], prog(lt, starts[i] - 0.2), 8);
+      const v = mix(from, to, prog(lt, starts[i] + 0.4, 1.0));
+      E["fill" + i].style.width = (v / 60) * 100 + "%";
+      E["val" + i].textContent = `${Math.round(v)} / 60`;
+    });
+  },
+});
+
+// 6 ─ Run it
+const SHOTS = [["1-overview.png", "Skills"], ["2-skill.png", "Skill detail"], ["3-proposal.png", "Proposed edit"],
+  ["4-trace.png", "Trace viewer"], ["5-results.png", "Results"]];
+// Crop the trace viewer below its metadata line (it names the synthetic harness field), starting at the rule box.
+const SHOT_SKIP = { "4-trace.png": 80 };
+SCENES.push({
+  beats: b => {
+    const loop = b("follow the loop");
+    return { type: b("type make demo"), installs: b("installs the pinned"), starts: b("starts the app"), nokey: b("no API key"),
+      shots: [b("skills", loop), b("skill detail"), b("proposed edit"), b("trace viewer"), b("and results")], env: b("set a model") };
+  },
+  html: `
+    <div class="h1">Run the demo</div>
+    <div k="term" class="abs panel" style="left:80px;top:200px;width:1020px;height:250px;padding:26px 30px;background:#0a0e14">
+      <div class="mono" style="font-size:26px"><span style="color:var(--ok)">$</span> <span k="typed"></span></div>
+      <div k="o1" class="mono muted" style="font-size:20px;margin-top:20px;line-height:32px">python -m pip install -q -r requirements.txt<br>python -m loop.app</div>
+      <div k="o2" class="mono" style="font-size:20px;margin-top:12px">Starting Skill Fix Loop at <span style="color:var(--data)">http://127.0.0.1:8000</span></div>
+      <div k="nokey" class="abs tag" style="right:28px;top:26px;color:var(--ok);border-color:#2f5e4a;font-size:18px">no API key needed</div>
+    </div>
+    <div k="env" class="abs panel" style="left:1140px;top:200px;width:700px;height:250px;padding:26px 30px;border-color:#5b6579;border-style:dashed">
+      <div class="mono" style="font-size:20px"><span style="color:var(--state)">.env</span> <span class="muted">· optional LLM path</span></div>
+      <div class="mono" style="font-size:21px;margin-top:22px;line-height:38px">LLM_MODEL=<span class="muted">&lt;provider/model&gt;</span><br>&lt;PROVIDER&gt;_API_KEY=<span class="muted">&lt;API_KEY&gt;</span></div>
+      <div class="mono muted" style="font-size:17px;margin-top:18px">pip install -r requirements-llm.txt</div>
+    </div>
+    ${SHOTS.map(([f, c], i) => `<div k="s${i}"><div class="shot" style="left:${80 + i * 358}px;top:560px"><img src="../screenshots/${f}" alt="" style="margin-top:${-(SHOT_SKIP[f] || 0)}px"></div>
+      <div class="shotcap" style="left:${80 + i * 358}px;top:878px">${c}</div></div>`).join("")}`,
+  update(lt, E, B) {
+    show(E.term, prog(lt, 0.1));
+    const cmd = "make demo", n = Math.round(cmd.length * clamp((lt - B.type - 0.25) / 0.6));
+    E.typed.textContent = cmd.slice(0, n) + (lt < B.installs ? "▍" : "");
+    show(E.o1, prog(lt, B.installs - 0.1), 6);
+    show(E.o2, prog(lt, B.starts), 6);
+    show(E.nokey, prog(lt, B.nokey - 0.1), 6);
+    B.shots.forEach((t, i) => show(E["s" + i], prog(lt, t - 0.2), 20));
+    show(E.env, prog(lt, B.env - 0.3));
+  },
+});
+
+// 7 ─ Gotchas
+const GOTCHAS = ["Feedback never decides alone", "Replay is simulated", "The data is synthetic and easy",
+  "Approved diffs aren't applied", "Workflows are flagged, not fixed"];
+const GCOL = ["var(--human)", "var(--state)", "var(--fail)", "var(--state)", "var(--ok)"];
+SCENES.push({
+  beats: b => ({ g: [b("Agent feedback never"), b("Replay is simulated"), b("synthetic and easy"), b("never written back"),
+    b("repeated workflows")], clean: b("A clean run"), overstates: b("overstates") }),
+  html: `
+    <div class="h1">Before you trust the numbers</div>
+    <div class="abs" style="left:80px;top:210px;width:620px">
+      ${GOTCHAS.map((g, i) => `<div k="g${i}" class="gitem"><b>${i + 1}</b>${g}</div>`).join("")}
+    </div>
+    <div k="detail" class="abs panel" style="left:740px;top:210px;width:1100px;height:560px">
+      <div k="k0" class="gcard">
+        <div class="gtitle">Feedback is one signal, not the verdict</div>
+        <div class="crow" style="gap:20px"><span class="mono" style="font-size:20px;width:300px">exit 2 + feedback <span style="color:var(--ok)">“success”</span></span><span class="muted" style="font-size:28px">→</span><span class="chip v-skill">Skill error</span><span class="soft" style="font-size:20px">exit code wins · rule 4</span></div>
+        <div k="k0b" class="crow" style="gap:20px"><span class="mono" style="font-size:20px;width:300px">clean run + feedback <span style="color:var(--fail)">“failure”</span></span><span class="muted" style="font-size:28px">→</span><span class="chip v-unknown">Unknown</span><span class="soft" style="font-size:20px">listed under Needs triage · rule 7</span></div>
+        <div class="soft" style="font:22px/34px var(--body);margin-top:26px">The optional LLM judge may look at these, but its answer is stored as <code>judge_verdict</code> and never replaces the rule verdict.</div>
+        <div class="tag" style="margin-top:22px">loop/verdict.py:101-105 · loop/pipeline.py:328-332</div>
+      </div>
+      <div k="k1" class="gcard">
+        <div class="gtitle">Replay is simulated <span class="tag" style="color:var(--state);border-color:#6b5428;margin-left:12px;vertical-align:middle">no agent is re-run</span></div>
+        <div k="rcode" class="panel code" style="background:var(--bg)">${codePanel("code-replay", "loop/replay.py", 301, "…")}</div>
+        <div class="soft" style="font:23px/36px var(--body);margin-top:24px">A held-out failure counts as fixed when an approved diff adds its cause's marker.
+          <span k="over" style="color:var(--text)">That overstates real gains.</span></div>
+      </div>
+      <div k="k2" class="gcard">
+        <div class="gtitle">Synthetic data, written to be separable</div>
+        <div style="display:flex;gap:30px;margin-top:10px">
+          <div class="panel" style="flex:1;padding:28px;background:var(--bg)"><div style="font:600 84px var(--display)">100%</div><div class="soft" style="font-size:23px">cluster purity vs. injected causes</div></div>
+          <div class="panel" style="flex:1;padding:28px;background:var(--bg)"><div style="font:600 84px var(--display)">57 / 60</div><div class="soft" style="font-size:23px">verdict accuracy on the eval set</div></div>
+        </div>
+        <div class="soft" style="font:23px/36px var(--body);margin-top:28px">These show the plumbing works, not real-world accuracy. The eval labels are what the generator intended, not independent human labels.</div>
+      </div>
+      <div k="k3" class="gcard">
+        <div class="gtitle">Decisions are logged; skill files stay unchanged</div>
+        <div style="display:flex;align-items:center;gap:30px;margin-top:30px">
+          <div class="panel" style="padding:26px 30px;border-color:var(--human);font:24px var(--body)">${PERSON} Approve</div>
+          <div class="muted" style="font-size:36px">→</div>
+          <div class="panel mono" style="padding:26px 30px;border-color:var(--state);font-size:22px;color:var(--state)">data/reviews.jsonl</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:30px;margin-top:30px">
+          <div class="panel mono" style="padding:26px 30px;font-size:22px;color:var(--state);opacity:.8">skills/deploy-preview/SKILL.md</div>
+          <div class="soft" style="font-size:24px">unchanged</div>
+        </div>
+        <div class="soft" style="font:23px/36px var(--body);margin-top:34px">No permissions or multi-reviewer approval yet.</div>
+      </div>
+      <div k="k4" class="gcard">
+        <div class="gtitle">Repeated workflows → candidate new skill</div>
+        <div style="display:flex;align-items:center;gap:16px;margin-top:20px;flex-wrap:wrap">
+          <span class="crow mono" style="margin:0;font-size:21px">pg_dump --schema-only</span><span class="muted" style="font-size:28px">→</span>
+          <span class="crow mono" style="margin:0;font-size:21px">pg_dump --schema-only</span><span class="muted" style="font-size:28px">→</span>
+          <span class="crow mono" style="margin:0;font-size:21px">diff -u</span>
+        </div>
+        <div class="soft" style="font:23px/36px var(--body);margin-top:30px">19 successful <code>write-migration</code> runs do these steps, which the skill never mentions.
+          It's flagged for a person to consider, not drafted as a fix.</div>
+        <div class="chip" style="margin-top:26px;border:2px solid var(--ok);color:var(--ok)">candidate new skill</div>
+      </div>
+    </div>`,
+  update(lt, E, B) {
+    show(E.detail, prog(lt, B.g[0] - 0.3));
+    B.g.forEach((t, i) => {
+      const next = B.g[i + 1] ?? Infinity;
+      show(E["g" + i], prog(lt, t - 0.2), 10);
+      const active = prog(lt, t - 0.2, 0.3) * (1 - prog(lt, next - 0.2, 0.3));
+      E["g" + i].style.borderLeftColor = active > 0.5 ? GCOL[i] : "var(--line)";
+      E["g" + i].style.color = active > 0.5 || lt < t ? "var(--text)" : "var(--muted)";
+      const card = window_(lt, t - 0.2, next - 0.35, 0.35);
+      E["k" + i].style.opacity = card; E["k" + i].style.visibility = card < 0.001 ? "hidden" : "visible";
+    });
+    show(E.k0b, prog(lt, B.clean - 0.1), 8);
+    setRows(E.rcode, { 2: prog(lt, B.g[1] + 1.0, 0.4) });
+    E.over.style.color = prog(lt, B.overstates - 0.1) > 0.5 ? "var(--state)" : "var(--soft)";
+  },
+});
+
+// 8 ─ Recap
+const RECAP = [["Every verdict names its rule", "var(--data)"], ["Failures → a few named causes", "var(--fail)"],
+  ["One diff per cause, with cited traces", "var(--state)"], ["A person decides; every decision is logged", "var(--human)"],
+  ["Success measured on held-out runs", "var(--ok)"]];
+const NEXT = ["Real agent reruns", "Judge vs. human labels", "Per-harness normalizers", "Who may approve shared skills"];
+SCENES.push({
+  beats: b => ({ r: [b("Every verdict"), b("Failures become"), b("Each cause gets"), b("A person decides"), b("success is measured")],
+    next: b("Next steps"), n: [b("real agent reruns"), b("checking the judge"), b("normalizers"), b("deciding who")] }),
+  html: `
+    <div class="h1">Recap</div>
+    <div class="abs" style="left:80px;top:220px">
+      ${RECAP.map(([t, c], i) => `<div k="r${i}" class="recap"><i style="background:${c}"></i>${t}</div>`).join("")}
+    </div>
+    <div k="nexth" class="abs plabel" style="left:80px;top:770px">Next steps</div>
+    <div class="abs" style="left:80px;top:820px">${NEXT.map((n, i) => `<span k="n${i}" class="next">${n}</span>`).join("")}</div>
+    <div k="foot" class="abs muted" style="left:80px;top:960px;font:20px var(--body)">Independent prototype built from public information and synthetic data. Not affiliated with Nessie.</div>`,
+  update(lt, E, B) {
+    B.r.forEach((t, i) => show(E["r" + i], prog(lt, t - 0.2), 14));
+    show(E.nexth, prog(lt, B.next - 0.2), 8);
+    B.n.forEach((t, i) => show(E["n" + i], prog(lt, t - 0.2), 10));
+    show(E.foot, prog(lt, B.n[3] + 1.0), 0);
+  },
+});
+
+// ------------------------------------------------------------------ build + renderAt
+const scenesEl = document.getElementById("scenes");
+const progressEl = document.getElementById("progress");
+const chapterEl = document.getElementById("chapter");
+const built = SCENES.map((def, i) => {
+  const sc = T.scenes[i];
+  const el = document.createElement("div");
+  el.className = "scene";
+  el.innerHTML = def.html;
+  scenesEl.appendChild(el);
+  const E = {};
+  el.querySelectorAll("[k]").forEach(n => { E[n.getAttribute("k")] = n; });
+  const B = def.beats(beatFinder(sc));
+  const seg = document.createElement("div");
+  seg.className = "seg"; seg.style.flex = sc.duration; seg.innerHTML = '<div class="fill"></div>';
+  progressEl.appendChild(seg);
+  return { def, sc, el, E, B, fill: seg.firstChild };
+});
+
+window.renderAt = function renderAt(t) {
+  t = clamp(t, 0, T.total - 1e-6);
+  built.forEach(({ def, sc, el, E, B, fill }) => {
+    const lt = t - sc.start;
+    const active = lt >= 0 && lt < sc.duration;
+    el.style.display = active ? "block" : "none";
+    fill.style.transform = `scaleX(${clamp(lt / sc.duration)})`;
+    if (!active) return;
+    el.style.opacity = prog(lt, 0, 0.35) * (1 - prog(lt, sc.duration - 0.35, 0.35));
+    def.update(lt, E, B);
+    const [num, ...rest] = sc.chapter.split(" / ");
+    chapterEl.innerHTML = `<b>${num}</b> / ${esc(rest.join(" / "))}`;
+  });
+};
+
+window.kvReady = Promise.all([
+  document.fonts.ready,
+  ...[...document.images].map(img => (img.complete ? null : new Promise(r => { img.onload = img.onerror = r; }))),
+]).then(() => true);
+
+// ------------------------------------------------------------------ preview mode (not used for rendering)
+if (!document.body.classList.contains("render")) {
+  const vp = document.getElementById("viewport");
+  const fit = () => { const s = Math.min(innerWidth / 1920, (innerHeight - 52) / 1080); vp.style.transform = `scale(${s})`; };
+  addEventListener("resize", fit); fit();
+  const scrub = document.getElementById("scrub"), clock = document.getElementById("clock");
+  const audio = document.getElementById("narration"), btn = document.getElementById("play");
+  let playing = false, t0 = 0, wall = 0, hasAudio = false;
+  audio.addEventListener("canplay", () => { hasAudio = true; });
+  const now = () => (hasAudio ? audio.currentTime : t0 + (performance.now() - wall) / 1000);
+  const draw = t => { renderAt(t); scrub.value = (t / T.total) * 1000; clock.textContent = t.toFixed(2) + "s"; };
+  const loop = () => { if (!playing) return; const t = now(); draw(t); if (t >= T.total) { playing = false; btn.textContent = "Play"; } else requestAnimationFrame(loop); };
+  btn.onclick = () => {
+    playing = !playing; btn.textContent = playing ? "Pause" : "Play";
+    if (playing) { t0 = (scrub.value / 1000) * T.total; wall = performance.now(); if (hasAudio) { audio.currentTime = t0; audio.play(); } loop(); }
+    else if (hasAudio) audio.pause();
+  };
+  scrub.oninput = () => { const t = (scrub.value / 1000) * T.total; if (hasAudio) audio.currentTime = t; t0 = t; wall = performance.now(); draw(t); };
+  draw(Number(params.get("t") || 0));
+}
+</script>
+</body>
+</html>
