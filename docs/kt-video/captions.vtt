@@ -1,0 +1,221 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:01.728
+Nessie already measures skills.
+
+2
+00:00:01.728 --> 00:00:05.123
+Its public changelog shows success analytics per skill.
+
+3
+00:00:05.123 --> 00:00:12.611
+Its Skill Evals docs give every run a verdict: Success, Skill error, Unexpected behavior, Other error, or Unknown.
+
+4
+00:00:12.611 --> 00:00:18.954
+What the public docs don't describe is the next step: turning those failures into fixes a person can review.
+
+5
+00:00:18.954 --> 00:00:21.488
+Skill Fix Loop is a prototype of that step.
+
+6
+00:00:21.488 --> 00:00:25.977
+It runs locally, on synthetic data, and it isn't affiliated with Nessie.
+
+7
+00:00:26.577 --> 00:00:27.636
+Here's the shape.
+
+8
+00:00:27.636 --> 00:00:29.599
+Traces come in as JSON lines.
+
+9
+00:00:29.599 --> 00:00:31.523
+Rules give every run a verdict.
+
+10
+00:00:31.523 --> 00:00:36.668
+Failures are grouped into causes, and each cause gets one drafted edit to the skill file.
+
+11
+00:00:36.668 --> 00:00:38.609
+All of that runs once, at startup.
+
+12
+00:00:38.609 --> 00:00:45.422
+Then a person approves or rejects each edit, and replay reports success before and after, on held-out traces.
+
+13
+00:00:45.422 --> 00:00:51.533
+An LLM can help in just two places: judging runs the rules leave as Unknown, and wording the edit.
+
+14
+00:00:51.533 --> 00:00:54.170
+Both stay off unless a model is configured.
+
+15
+00:00:54.769 --> 00:00:57.659
+Let's follow one run, trace dep-086.
+
+16
+00:00:57.659 --> 00:01:03.230
+The agent checks the branch, installs, builds, then runs vercel deploy with --preview.
+
+17
+00:01:03.230 --> 00:01:06.944
+That exits with code two, because the newer tool removed the flag.
+
+18
+00:01:06.944 --> 00:01:08.843
+The agent still reports success.
+
+19
+00:01:08.843 --> 00:01:11.938
+Verdict rules run in order, and the first match wins.
+
+20
+00:01:11.938 --> 00:01:14.007
+Rule four looks at the final tool call.
+
+21
+00:01:14.007 --> 00:01:19.848
+A non-zero exit is a Skill error, whatever the agent said, unless the error looks environmental.
+
+22
+00:01:19.848 --> 00:01:23.583
+The verdict records the rule, a reason, and the step where it fired.
+
+23
+00:01:24.183 --> 00:01:25.339
+Next, causes.
+
+24
+00:01:25.339 --> 00:01:27.168
+Each error line is normalized.
+
+25
+00:01:27.168 --> 00:01:33.003
+Paths, IDs and numbers are stripped, so runs that differ only in details share one signature.
+
+26
+00:01:33.003 --> 00:01:41.769
+Signatures become TF-IDF vectors, and agglomerative clustering groups them, one skill at a time, using only failures from the mining split.
+
+27
+00:01:41.769 --> 00:01:50.960
+For deploy-preview, that gives three causes: a missing Vercel token in twenty-two runs, the removed flag in eighteen, and deploying from main in seven.
+
+28
+00:01:51.560 --> 00:01:52.609
+Now the fix.
+
+29
+00:01:52.609 --> 00:01:56.663
+The default drafter is a set of templates matched against the error text.
+
+30
+00:01:56.663 --> 00:02:01.241
+This one recognizes a renamed flag, so it rewrites step four of the skill file.
+
+31
+00:02:01.241 --> 00:02:05.781
+You get a one-line diff, and a rationale citing five trace IDs you can click.
+
+32
+00:02:05.781 --> 00:02:08.293
+A reviewer approves, edits, or rejects.
+
+33
+00:02:08.293 --> 00:02:13.864
+Each decision is appended to reviews.jsonl with a timestamp, and the latest one wins.
+
+34
+00:02:13.864 --> 00:02:16.079
+Replay then checks the held-out traces.
+
+35
+00:02:16.079 --> 00:02:22.004
+Approve only this edit, and deploy-preview goes from forty to forty-four successes out of sixty.
+
+36
+00:02:22.004 --> 00:02:24.553
+Approve all three, and it reaches fifty-seven.
+
+37
+00:02:25.153 --> 00:02:26.846
+To run it, type make demo.
+
+38
+00:02:26.846 --> 00:02:32.287
+It installs the pinned requirements and starts the app on port eight thousand, with no API key.
+
+39
+00:02:32.287 --> 00:02:37.704
+Five pages follow the loop: skills, skill detail, proposed edit, trace viewer, and results.
+
+40
+00:02:37.704 --> 00:02:41.240
+For the LLM path, set a model in a .env file.
+
+41
+00:02:41.840 --> 00:02:44.306
+Some things to know before you trust the numbers.
+
+42
+00:02:44.306 --> 00:02:46.680
+Agent feedback never decides on its own.
+
+43
+00:02:46.680 --> 00:02:51.338
+A clean run where the agent reports failure stays Unknown, under Needs triage.
+
+44
+00:02:51.338 --> 00:02:52.846
+Replay is simulated.
+
+45
+00:02:52.846 --> 00:02:59.412
+A held-out failure counts as fixed if an approved diff adds that cause's fix marker, which overstates real gains.
+
+46
+00:02:59.412 --> 00:03:06.224
+The data is synthetic and easy, so a hundred percent cluster purity proves the plumbing, not real-world accuracy.
+
+47
+00:03:06.224 --> 00:03:09.206
+Approved diffs are never written back to the skill file.
+
+48
+00:03:09.206 --> 00:03:15.492
+And repeated workflows, like pg_dump, pg_dump, diff, are flagged as new skill candidates, not fixed.
+
+49
+00:03:16.092 --> 00:03:17.046
+To recap.
+
+50
+00:03:17.046 --> 00:03:18.739
+Every verdict names its rule.
+
+51
+00:03:18.739 --> 00:03:20.873
+Failures become a few named causes.
+
+52
+00:03:20.873 --> 00:03:23.825
+Each cause gets one diff, backed by trace IDs.
+
+53
+00:03:23.825 --> 00:03:26.837
+A person decides, and every decision is logged.
+
+54
+00:03:26.837 --> 00:03:29.297
+And success is measured on held-out runs.
+
+55
+00:03:29.297 --> 00:03:40.392
+Next steps: real agent reruns instead of simulated replay, checking the judge against human labels, normalizers for each harness, and deciding who may approve edits to shared skills.

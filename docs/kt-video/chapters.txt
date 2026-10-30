@@ -1,0 +1,8 @@
+0:00 The missing step
+0:26 Architecture
+0:54 One run gets a verdict
+1:24 From failures to causes
+1:51 Draft, review, replay
+2:25 Run it
+2:41 Gotchas and limitations
+3:16 Recap and next steps
